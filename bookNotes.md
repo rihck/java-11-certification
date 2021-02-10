@@ -36,12 +36,14 @@ Extra
 ```
 PS: Comments can be defined anywhere in the code
 
-- Class structure
-	* You can put two classes in the same file. When you do so, at most one of the classes in the file is allowed to be public. If you do have a public class, it needs to match the filename.
+####  Class structure
+* You can put two classes in the same file. When you do so, at most one of the classes in the file is allowed to be public. If you do have a public class, it needs to match the filename.
+* If one class is referring another that IS NOT at the same package, you should `import` specifying the package the class is
+* If the class is referring another that IS in the same package, you don't need to `import` it
 
-- Main method
-	* The main() method lets the JVM call our code. If it doesn't have, the `java` CLI command will not run
-	* The base signature of main method is:
+####  Main method
+* The main() method lets the JVM call our code. If it doesn't have, the `java` CLI command will throw an error
+* The base signature of main method is:
 	
 	```java
 	// The "public static void main" part is mandatory and should be like this to be considered a main method
@@ -61,15 +63,15 @@ String... options;
 ```
 	* The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
 	
-- `JAVAC` CLI 
-	* You use to compile a `.java` file into `.class` file, so it run anywhere using JVM
+#### JAVAC CLI 
+* You use to compile a `.java` file into `.class` file, so it run anywhere using JVM
 	
 ```java
 javac Zoo.java
 ```
 
-- `JAVA` CLI
-	* You use to run a `.class` file. 
+####  JAVA CLI
+* You use to run a `.class` file. 
 	
 ```java
 //Example running "Zoo.class"
@@ -96,4 +98,5 @@ But there are some conditions do to this:
 	- Your program should have only 1 file
 	- Your classes can just refer classes from `java.util` (code that came with JDK)
 
+#### Wildcards
 
