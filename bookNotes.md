@@ -100,4 +100,17 @@ But there are some conditions do to this:
 	- Your classes can just refer classes from `java.util` (code that came with JDK)
 
 #### Wildcards
+* Classes in the same package are often imported together. You can use a shortcut to import all the classes in a package.
+
+```java
+ // imports java.util.Random among other things
+import java.util.*;
+//Every class in the java.util package is available to this program when Java compiles it.
+```
+* **==It doesn’t import child packages (is not recursive), fields, or methods;==** it imports only classes. (There is a special type of import called the static import that imports other types, which we’ll learn more about in Chapter 7.)
+
+ 
+
+
+
 
