@@ -20,7 +20,8 @@ Extra
 ---
 <a id="chapter1"/></a>
 ### _Chapter 1:  Welcome to Java_ 
-- Comments: Can be defined in 3 ways in Java
+#### Comments: 
+* Can be defined in 3 ways in Java
 
 ```java
 1 - // comment until end of line
