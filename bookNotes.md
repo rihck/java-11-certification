@@ -12,11 +12,88 @@ Chapters
 - <a href="#chapter1">1 - Welcome to Java</a>
 	+ <a href="#questions-chapter1">Review Questions</a>
 
-Review Questions
+Extra
 ---
 
-- <a href="#possibleQuestions">Possíveis questões de prova</a>
-- <a href="#importantReview">Importantes Termos / Acrónimos (para Revisar)</a>
+- <a href="#otherQuestions">Other questions to practice</a>
 
-<a id="day1"/></a>
+---
+<a id="chapter1"/></a>
+### _Chapter 1:  Welcome to Java_ 
+- Comments: Can be defined in 3 ways in Java
+
+```java
+1 - // comment until end of line
+
+2 - /* Multiple
+ * line comment
+ */
+ 
+3 - /**
+ * Javadoc multiple-line comment
+ * @author Jeanne and Scott
+ */
+```
+PS: Comments can be defined anywhere in the code
+
+- Class structure
+	* You can put two classes in the same file. When you do so, at most one of the classes in the file is allowed to be public. If you do have a public class, it needs to match the filename.
+
+- Main method
+	* The main() method lets the JVM call our code. If it doesn't have, the `java` CLI command will not run
+	* The base signature of main method is:
+	
+	```java
+	// The "public static void main" part is mandatory and should be like this to be considered a main method
+	public static void main(String[] args){}
+	```	
+But there are 3 possible ways to change the array parameter
+	```java
+	String[] args
+	String args[]
+	String... args;
+	```
+You can also change the parameter name
+```java
+String[] options
+String options []
+String... options;
+```
+	* The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
+	
+- `JAVAC` CLI 
+	* You use to compile a `.java` file into `.class` file, so it run anywhere using JVM
+	
+```java
+javac Zoo.java
+```
+
+- `JAVA` CLI
+	* You use to run a `.class` file. 
+	
+```java
+//Example running "Zoo.class"
+//You must omit the ".class" part
+java Zoo part
+```
+
+* While passing parameters to `java` command, If you want an argument with a space to be recognized as one, use quotation marks
+
+ ```java
+java Zoo "One Parameter"
+```
+	
+* In Java 11 We can run our java classes without actually having to compile it (no `.class` files will be generated).
+```java
+//You must write the `.java` extension
+java Zoo.java
+```
+
+* This feature is called launching **single-file source-code programs**
+But there are some conditions do to this:
+
+	- Your class should NOT reference external classes
+	- Your program should have only 1 file
+	- Your classes can just refer classes from `java.util` (code that came with JDK)
+
 
