@@ -63,19 +63,24 @@ Method declarations | void method(); | No | Any top-level element in a class
 	// The "public static void main" part is mandatory and should be like this to be considered a main method
 	public static void main(String[] args){}
 	```	
-But there are 3 possible ways to change the array parameter
+	
+	+ But there are 3 possible ways to change the array parameter
+	
 	```java
 	String[] args
 	String args[]
 	String... args;
 	```
-You can also change the parameter name
+	
+	+ You can also change the parameter name
+	
 ```java
 String[] options
 String options []
 String... options;
 ```
-	* The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
+
+	+ The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
 	
 -------
 #### JAVAC CLI 
