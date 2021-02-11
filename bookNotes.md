@@ -73,12 +73,11 @@ Method declarations | void method(); | No | Any top-level element in a class
 	
 	//You can also change the parameter name
 	String[] options
-String options []
-String... options;
+	String options []
+	String... options;
 	```
 
-
-* The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
+	+ The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
 	
 -------
 #### JAVAC CLI 
