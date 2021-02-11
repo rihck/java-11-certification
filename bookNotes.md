@@ -110,7 +110,7 @@ javac packagea/*.java packageb/*.java
 
 Option | Description | 
 --- | --- 
-| -cp <classpath> <br/>  -classpath <classpath> <br/> --class-path <classpath> | Location of classes needed to compile the program
+| -cp "classpath" <br/>  -classpath "casspath" <br/> --class-path "classpath" | Location of classes needed to compile the program
 
 -------
 <a id="c1-java-cli"/></a>
@@ -151,8 +151,8 @@ Can import code in any available Java library | Can only import code that came w
 
 Option | Description | 
 --- | --- 
-| -cp <classpath> <br/>  -classpath <classpath> <br/> --class-path <classpath> | Location of classes needed to compile the program
-| -d <dir> | Directory to place generated class files
+| -cp "classpath" <br/>  -classpath "classpath" <br/> --class-path "classpath" | Location of classes needed to compile the program
+| -d "dir" | Directory to place generated class files
 
 
 -------
@@ -183,8 +183,8 @@ Option | Description |
 --- | --- 
 | -c <br/> --create <br/>  | Creates a new JAR file
 | -v <br/> --verbose <br/> | Prints details when working with JAR files
-| -c <br/> --create <br/>  | JAR filename
-| -c <br/> --create <br/>  | Directory containing files to be used to create the JAR
+| -f "fileName" <br/> --file "fileName" <br/>  | JAR filename
+| -C <br/>   					 | Directory containing files to be used to create the JAR
 
 -------
 <a id="c1-wildcards"/></a>
