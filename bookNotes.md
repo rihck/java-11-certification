@@ -1,13 +1,21 @@
-**Summary**
+## Summary
 
-[TOC]
-
-<!--
-xx Chapters
+**Chapters**
 
 - <a href="#chapter1">1 - Welcome to Java</a>
-	+ <a href="#questions-chapter1">Review Questions</a>
--->
+	+ <a href="#c1-comments">Comments</a>
+	+ <a href="#c1-class-structure">Class structure</a>
+		+ <a href="#c1-ordering-elements">Ordering elements in a class</a>
+	+ <a href="#c1-main">Main method</a>
+	+ <a href="#c1-javac-cli">Javac CLI</a>
+		+ <a href="#c1-javac-options">Options you need to know for the exam</a>
+	+ <a href="#c1-java-cli">Java CLI</a>
+		+ <a href="#c1-possible-running">Possible ways of running programs</a>
+		+ <a href="#c1-java-options">Options you need to know for the exam</a>
+	+ <a href="#c1-wildcards">Wildcards</a>
+	+ <a href="#c1-redundant">Redundant Imports</a>
+	+ <a href="#c1-conflict">Conflict Imports</a>
+	+ <a href="#c1-formating">Code Formatting on the Exam</a>
 
 ## Intro
 
@@ -15,9 +23,9 @@ We'll be using [this Book](https://www.amazon.com/gp/product/B08DF4R2V9/ref=ppx_
 
 ---
 
-## Chapters
 <a id="chapter1"/></a>
 ### _Chapter 1:  Welcome to Java_ 
+<a id="c1-comments"/></a>
 #### Comments: 
 * Can be defined in 3 ways in Java
 
@@ -36,11 +44,13 @@ We'll be using [this Book](https://www.amazon.com/gp/product/B08DF4R2V9/ref=ppx_
 PS: Comments can be defined anywhere in the code
 
 -------
+<a id="c1-class-structure"/></a>
 ####  Class structure
 * You can put two classes in the same file. When you do so, at most one of the classes in the file is allowed to be public. If you do have a public class, it needs to match the filename.
 * If one class is referring another that IS NOT at the same package, you should `import` specifying the package the class is
 * If the class is referring another that IS in the same package, you don't need to `import` it
 
+<a id="c1-ordering-elements"/></a>
 ##### Ordering elements in a class:
 
 Element | Example | Required? | Where does it go? |
@@ -53,6 +63,7 @@ Method declarations | void method(); | No | Any top-level element in a class
  
 
 -------
+<a id="c1-main"/></a>
 ####  Main method
 * The main() method lets the JVM call our code. If it doesn't have, the `java` CLI command will throw an error
 * The base signature of main method is:
@@ -78,6 +89,7 @@ Method declarations | void method(); | No | Any top-level element in a class
 	+ The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
 	
 -------
+<a id="c1-javac-cli"/></a>
 #### JAVAC CLI 
 * You use to compile a `.java` file into `.class` file, so it run anywhere using JVM
 	
@@ -91,7 +103,7 @@ javac packagea/ClassA.java packageb/ClassB.java
 //Compiling with Wildcards (It will compite all .java files in both packages)
 javac packagea/*.java packageb/*.java
 ```
-
+<a id="c1-javac-options"/></a>
 ##### Options you need to know for the exam:
 
 Option | Description | 
@@ -99,6 +111,7 @@ Option | Description |
 | -cp <classpath> <br/>  -classpath <classpath> <br/> --class-path <classpath> | Location of classes needed to compile the program
 
 -------
+<a id="c1-java-cli"/></a>
 ####  JAVA CLI
 * You use to run a `.class` file. 
 	
@@ -120,6 +133,7 @@ java Zoo "One Parameter"
 java Zoo.java
 ```
 
+<a id="c1-possible-running"/></a>
 ##### Possible ways of running programs
 
 Full Command | Single-file-source-code command | 
@@ -129,6 +143,7 @@ Produces a class file | Fully in memory
 For any program | For programs with one file
 Can import code in any available Java library | Can only import code that came with the JDK
 
+<a id="c1-XXX"/></a>
 ##### Options you need to know for the exam:
 
 Option | Description | 
@@ -138,6 +153,7 @@ Option | Description |
 
 
 -------
+<a id="c1-wildcards"/></a>
 #### Wildcards
 * Classes in the same package are often imported together. You can use a shortcut to import all the classes in a package.
 
@@ -158,10 +174,12 @@ import java.nio.file.Files.*; // You cannot import methods, only class names
 ```
 
 -------
+<a id="c1-redundant"/></a>
 #### Redundant Imports
 * There’s one special package `java.lang`, this package is automatically imported **(we don't need to explicit import it)**. Inside this package we can find the `System` class for example
 
 -------
+<a id="c1-conflict"/></a>
 #### Conflict Imports
 * You can face conflict imports when trying to import classes with the same name in different packages
 	+ Ex: If you want to use the `Date` class and define 2 imports that have this class it will not compile
@@ -188,7 +206,7 @@ import java.sql.*;
 java.sql.Date sqlDate;
 ```
 -------
-
+<a id="c1-formating"/></a>
 #### Code Formatting on the Exam
 Not all questions will include package declarations and imports. Don’t worry about missing package statements or imports unless you are asked about them.
 
