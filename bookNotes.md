@@ -1,23 +1,21 @@
-## Summary
-Intro
----
+**Summary**
 
+[TOC]
 
-- We'll be using [this Book](https://www.amazon.com/gp/product/B08DF4R2V9/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1) to study to the certification.
-
-
-Chapters
----
+<!--
+xx Chapters
 
 - <a href="#chapter1">1 - Welcome to Java</a>
 	+ <a href="#questions-chapter1">Review Questions</a>
+-->
 
-Extra
+## Intro
+
+We'll be using [this Book](https://www.amazon.com/gp/product/B08DF4R2V9/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1) to study to the certification.
+
 ---
 
-- <a href="#otherQuestions">Other questions to practice</a>
-
----
+## Chapters
 <a id="chapter1"/></a>
 ### _Chapter 1:  Welcome to Java_ 
 #### Comments: 
@@ -94,7 +92,7 @@ javac packagea/ClassA.java packageb/ClassB.java
 javac packagea/*.java packageb/*.java
 ```
 
-* `javac` Options you need to know for the exam:
+##### Options you need to know for the exam:
 
 Option | Description | 
 --- | --- 
@@ -116,14 +114,13 @@ java Zoo part
 java Zoo "One Parameter"
 ```
 	
-* In Java 11 We can run our java classes without actually having to compile it (no `.class` files will be generated).
+* In Java 11 We can run our java classes without actually having to compile it, This feature is called launching **single-file source-code programs**  (no `.class` files will be generated).
 ```java
 //You must write the `.java` extension
 java Zoo.java
 ```
 
-* This feature is called launching **single-file source-code programs**
-But there are some conditions do to this:
+##### Possible ways of running programs
 
 Full Command | Single-file-source-code command | 
 --- | --- 
@@ -132,7 +129,7 @@ Produces a class file | Fully in memory
 For any program | For programs with one file
 Can import code in any available Java library | Can only import code that came with the JDK
 
-* `java` Options you need to know for the exam:
+##### Options you need to know for the exam:
 
 Option | Description | 
 --- | --- 
