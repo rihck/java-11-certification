@@ -70,15 +70,12 @@ Method declarations | void method(); | No | Any top-level element in a class
 	String[] args
 	String args[]
 	String... args;
-	```
 	
-	+ You can also change the parameter name
-	
-```java
-String[] options
+	//You can also change the parameter name
+	String[] options
 String options []
 String... options;
-```
+	```
 
 	+ The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
 	
