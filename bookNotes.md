@@ -1,6 +1,6 @@
-## Summary
+# Summary
 
-**Chapters**
+### **Chapters**
 
 - <a href="#chapter1">1 - Welcome to Java</a>
 	+ <a href="#c1-comments">Comments</a>
@@ -12,6 +12,8 @@
 	+ <a href="#c1-java-cli">Java CLI</a>
 		+ <a href="#c1-possible-running">Possible ways of running programs</a>
 		+ <a href="#c1-java-options">Options you need to know for the exam</a>
+	+ <a href="#c1-jar-cli">Jar CLI</a>
+		+ <a href="#c1-jar-options">Options you need to know for the exam</a>
 	+ <a href="#c1-wildcards">Wildcards</a>
 	+ <a href="#c1-redundant">Redundant Imports</a>
 	+ <a href="#c1-conflict">Conflict Imports</a>
@@ -24,9 +26,9 @@ We'll be using [this Book](https://www.amazon.com/gp/product/B08DF4R2V9/ref=ppx_
 ---
 
 <a id="chapter1"/></a>
-### _Chapter 1:  Welcome to Java_ 
+## _Chapter 1:  Welcome to Java_ 
 <a id="c1-comments"/></a>
-#### Comments: 
+### Comments: 
 * Can be defined in 3 ways in Java
 
 ```java
@@ -45,13 +47,13 @@ PS: Comments can be defined anywhere in the code
 
 -------
 <a id="c1-class-structure"/></a>
-####  Class structure
+###  Class structure
 * You can put two classes in the same file. When you do so, at most one of the classes in the file is allowed to be public. If you do have a public class, it needs to match the filename.
 * If one class is referring another that IS NOT at the same package, you should `import` specifying the package the class is
 * If the class is referring another that IS in the same package, you don't need to `import` it
 
 <a id="c1-ordering-elements"/></a>
-##### Ordering elements in a class:
+#### Ordering elements in a class:
 
 Element | Example | Required? | Where does it go? |
 --- | --- | --- | ---
@@ -64,7 +66,7 @@ Method declarations | void method(); | No | Any top-level element in a class
 
 -------
 <a id="c1-main"/></a>
-####  Main method
+###  Main method
 * The main() method lets the JVM call our code. If it doesn't have, the `java` CLI command will throw an error
 * The base signature of main method is:
 	
@@ -90,7 +92,7 @@ Method declarations | void method(); | No | Any top-level element in a class
 	
 -------
 <a id="c1-javac-cli"/></a>
-#### JAVAC CLI 
+### JAVAC CLI 
 * You use to compile a `.java` file into `.class` file, so it run anywhere using JVM
 	
 ```java
@@ -104,7 +106,7 @@ javac packagea/ClassA.java packageb/ClassB.java
 javac packagea/*.java packageb/*.java
 ```
 <a id="c1-javac-options"/></a>
-##### Options you need to know for the exam:
+#### Options you need to know for the exam:
 
 Option | Description | 
 --- | --- 
@@ -112,7 +114,7 @@ Option | Description |
 
 -------
 <a id="c1-java-cli"/></a>
-####  JAVA CLI
+###  JAVA CLI
 * You use to run a `.class` file. 
 	
 ```java
@@ -133,8 +135,9 @@ java Zoo "One Parameter"
 java Zoo.java
 ```
 
+-------
 <a id="c1-possible-running"/></a>
-##### Possible ways of running programs
+#### Possible ways of running programs
 
 Full Command | Single-file-source-code command | 
 --- | --- 
@@ -144,7 +147,7 @@ For any program | For programs with one file
 Can import code in any available Java library | Can only import code that came with the JDK
 
 <a id="c1-XXX"/></a>
-##### Options you need to know for the exam:
+#### Options you need to know for the exam:
 
 Option | Description | 
 --- | --- 
@@ -153,8 +156,39 @@ Option | Description |
 
 
 -------
+<a id="c1-jar-cli"/></a>
+###  JAR CLI
+* A Java archive (JAR) file is like a zip file of mainly Java class files.
+
+* You can specify JAR files using the `cp` parameter
+```java
+//We can use a wildcard (*) to match all the JARs in a directory.
+java -cp "C:\temp\directoryWithJars\*" myPackage.MyClass
+```
+
+* In addition to using JARs created by others, we can create our own, here's **you can create a JAR**
+
+```java
+jar -cvf myNewFile.jar .
+jar --create --verbose --file myNewFile.jar .
+
+//Alternatively, you can specify a directory instead of using the current directory.
+jar -cvf myNewFile.jar -C dir .
+```
+
+<a id="c1-jar-options"/></a>
+#### Options you need to know for the exam:
+
+Option | Description | 
+--- | --- 
+| -c <br/> --create <br/>  | Creates a new JAR file
+| -v <br/> --verbose <br/> | Prints details when working with JAR files
+| -c <br/> --create <br/>  | JAR filename
+| -c <br/> --create <br/>  | Directory containing files to be used to create the JAR
+
+-------
 <a id="c1-wildcards"/></a>
-#### Wildcards
+### Wildcards
 * Classes in the same package are often imported together. You can use a shortcut to import all the classes in a package.
 
 ```java
@@ -175,12 +209,12 @@ import java.nio.file.Files.*; // You cannot import methods, only class names
 
 -------
 <a id="c1-redundant"/></a>
-#### Redundant Imports
+### Redundant Imports
 * There’s one special package `java.lang`, this package is automatically imported **(we don't need to explicit import it)**. Inside this package we can find the `System` class for example
 
 -------
 <a id="c1-conflict"/></a>
-#### Conflict Imports
+### Conflict Imports
 * You can face conflict imports when trying to import classes with the same name in different packages
 	+ Ex: If you want to use the `Date` class and define 2 imports that have this class it will not compile
 	
@@ -207,7 +241,7 @@ java.sql.Date sqlDate;
 ```
 -------
 <a id="c1-formating"/></a>
-#### Code Formatting on the Exam
+### Code Formatting on the Exam
 Not all questions will include package declarations and imports. Don’t worry about missing package statements or imports unless you are asked about them.
 
 * The following are common cases where you don’t need to check the imports: 
