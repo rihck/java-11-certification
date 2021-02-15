@@ -23,8 +23,12 @@
 	+ <a href="#c2-creating-objects">Creating Objects & Constructors</a>
 	+ <a href="#c2-reading-fields">Reading and Writing Member Fields</a> 
 	+ <a href="#c2-initializer-block">Instance Initializer Blocks</a> 
-		+  <a href="#c2-initializer-order">Following Order of Initialization</a> 
+		+ <a href="#c2-initializer-order">Following Order of Initialization</a> 
 	+ <a href="#c2-understanding-data-types">Understanding Data Types</a> 
+		+ <a href="#c2-primitive-types">The primitive types</a> 
+		+ <a href="#c2-short-char">Signed and Unsigned: short and char</a> 
+		+ <a href="#c2-writing-literals">Writing literals</a>
+			+ <a href="#c2-literals_underscore">Literals and the Underscore Character</a> 
 
 ## Intro
 
@@ -359,4 +363,87 @@ private String name = "Fluffy";
 
 <a id="c2-understanding-data-types"/></a>
 ### Understanding Data Types
+* In java we have two types of data
+	+ **Reference types:** refers to an object (an instance of a class). A reference “points” to an object by storing the memory address where the object is located, a concept referred to as a pointer.
+	+ **Primitive Types:** A primitive is just a single value in memory, such as a number or character. A primitive is not an object in Java nor does it represent an object. 
+	
+<a id="c2-primitive-types"/></a>
+#### The primitive types
+* Java has eight built-in primitive types. These eight data types represent the building blocks for Java objects, because all Java objects are just a complex collection of these primitive data types.
+
+Keyword | Type | Example
+--- | --- | ---
+| boolean | true or false | true
+| byte | 8-bit integral value | 123
+| short | 16-bit integral value | 123
+| int | 32-bit integral value | 123
+| long | 64-bit integral value | 123L
+| float | 32-bit floating-point value | 123.25F
+| double | 64-bit floating-point value | 123.456
+| char | 16-bit Unicode value | 'a'
+
+-> **PS I**: **String** *IS NOT* a Primitive =) 
+-> **PS II**: You won’t be asked about the exact sizes of most of these types, although you should know that a byte can hold a value from –128 to 127.
+
+* Some notes about this table:
+	+ Each numeric type uses twice as many bits as the smaller similar type. For example, short uses twice as many bits as byte does.
+	+ All of the numeric types are signed in Java. This means that they reserve one of their bits to cover a negative range. For example, byte ranges from -128 to 127. Don’t forget, 0 needs to be accounted for too in the range.
+
+<a id="c2-short-char"/></a>
+#### Signed and Unsigned: short and char
+* Short and Char are closely related, as both are stored as integral types with the same 16-bit length.
+	+ The primary difference is that short is signed, which means it splits its range across the positive and negative integers.
+	+ char is unsigned, which means range is strictly positive including 0. 
+	+ char can hold a higher positive numeric value than short, but cannot hold any negative numbers.
+
+* A **byte is 8 bits**. A bit has two possible values. (These are basic computer science definitions that you should memorize.) 
+*2^8* = `2 × 2 = 4 × 2 = 8 × 2 = 16 × 2 = 32 × 2 = 64 × 2 = 128 × 2 = 256`. 
+Since 0 needs to be included in the range, Java takes it away from the positive side. Or if you don’t like math, you can just memorize it.
+
+* Floating-point values like double and float are not easy to calculate but don’t worry, for the exam you are not required to know how floating-point values are stored.
+
+<a id="c2-writing-literals"/></a>
+#### Writing literals
+* When a number is present in the code, it is called a literal. By default, Java assumes you are defining an int value with a numeric literal.
+ 
+ ```java
+ long max = 3123456789;  // DOES NOT COMPILE (Java complains the number is out of range.
+//However, we don’t have an int. The solution is to add the character L to the number:
+long max = 3123456789L;  // now Java knows it is a long
+ ```
+ 
+ * We can specify number change the base, the default in java is 0-9 but java allow you to use:
+ 
+Base | Digits| Description | Example | Obs
+------- | ------- | ------- | ------- | -------
+Octal | 0 - 7 | uses the number 0 as a prefix | 017
+Hexadecimal | 0 - 9 and letter A-F/a-f | uses 0x or 0X as a prefix | 0xFF, 0xff, 0XFf | case insensitive, so all examples mean the same value.
+Binary | 0 - 1 | uses the number 0 followed by b or B as a prefix | 0b10, 0B10 | case insensitive, so all examples mean the same value.
+
+* Exam tip: We won’t need to convert between number systems on the exam. You’ll have to **recognize valid literal values that can be assigned to numbers.**
+
+<a id="c2-literals_underscore"/></a>
+#### Literals and the Underscore Character
+* We can have underscores in literal numbers to make them easier to read: `int million2 = 1_000_000;`
+
+* We can add underscores anywhere expect in some places
+	
+	```java
+	//Can't (DOES NOT COMPILE)
+	double notAtStart = _1000.00;          // Beginning of a literal
+	double notAtEnd = 1000.00_;            // End of a literal
+	double notByDecimalBefore = 1000_.00;  // Right before decimal point
+	double notByDecimalAfter = 1000._00;   // Right after decimal point
+
+	//Can
+	double annoyingButLegal = 1_00_0.0_0;  // Ugly, but compiles
+	double reallyUgly = 1__________2;      // Also compiles (you can place multiple underscore characters)
+	```
+
+
+
+
+
+
+
 
