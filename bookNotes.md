@@ -29,8 +29,12 @@
 		+ <a href="#c2-short-char">Signed and Unsigned: short and char</a> 
 		+ <a href="#c2-writing-literals">Writing literals</a>
 			+ <a href="#c2-literals_underscore">Literals and the Underscore Character</a> 
-		+ <a href="#c2-primitive-and-reference-types">Reference Types</a> 
-			+ <a href="#c2-reference-types">Distinguishing between Primitives and Reference Types</a> 
+		+ <a href="#c2-reference-types">Reference Types</a> 
+			+ <a href="#c2-primitive-and-reference-types">Distinguishing between Primitives and Reference Types</a> 
+		+ <a href="#c2-declaring-variables">Declaring Variables</a> 
+			+ <a href="#c2-identifiers">Identifying Identifiers</a> 
+			+ <a href="#c2-camel-snake-case">CamelCase and Snake-Case</a> 
+			+ <a href="#c2-multiple-variables">Declaring Multiple Variables</a> 
 
 ## Intro
 
@@ -490,6 +494,85 @@ String s = null;
 6: int bad = len.length(); // DOES NOT COMPILE (primitive doesn't have methods)
 ```
 
+<a id="c2-declaring-variables"/></a>
+### Declaring Variables
+* You can declare variable and assign a value to it, it's called *initializing variables*, it can be done in 2 ways:
 
+```java
+// Initialize at a latter point after declaring it
+5: zooName = "The Best Zoo";
+6: numberAnimals = 100;
+
+// Initialize in the same statement as the declaration.
+1: String zooName = "The Best Zoo";
+2: int numberAnimals = 100;
+```
+
+<a id="c2-identifiers"/></a>
+#### Identifying Identifiers
+* Java has precise rules about identifier names. An *identifier is the name* of a `variable`, `method`, `class`, `interface`, or `package`. Java has precise rules about identifier names, the rules for variables apply to all of the other types that you are free to name. </br> There are only four rules to remember for legal identifiers:
+	+ Identifiers **must begin** with a letter, a $ symbol, or a _ symbol.
+	+ Identifiers **can include** numbers but not start with them.
+	+ Since Java 9, a single underscore _ is **not allowed** as an identifier.
+	+ You **cannot use** the same name as a Java reserved word. A reserved word is special word that Java has held aside so that you are not allowed to use it. </br> **PS:** Java is case sensitive, you can use keywords versions that differ in case.
+
+	We **won’t need to memorize** the full list of reserved words. The exam will only ask you about ones that are commonly used, such as `class` and `for`.</br> (Check the `Table 2.2` on original book to see all reserved words)
+	
+	```java
+	//The following examples are legal: 
+	long okidentifier;
+	float $OK2Identifier;
+	boolean _alsoOK1d3ntifi3r;
+	char __SStillOkbutKnotsonice$; 
+	
+	//These examples are NOT legal: 
+	int 3DPointClass;    // identifiers cannot begin with a number
+	byte hollywood@vine; // @ is not a letter, digit, $ or _
+	String *$coffee;     // * is not a letter, digit, $ or _
+	double public;       // public is a reserved word
+	short _;             // a single underscore is not allowed
+	```
+
+<a id="c2-camel-snake-case"/></a>
+#### Styles: CamelCase and Snake-Case 
+* Camel Case: The first letter of each word is capitalized.
+	+ Method and variable names are written in camelCase with the first letter being lowercase. 
+	+ Class and interface names are written in camelCase with the first letter being uppercase. Also, don’t start any class name with $, as the compiler uses this symbol for some files.
+* Snake Case: Uses an underscore (_) to separate words, often entirely in lowercase.
+	+ Static final values and ENUM values tend to be written with snake_case
+
+<a id="c2-multiple-variables"/></a>
+#### Declaring Multiple Variables
+* You can also declare and initialize multiple variables in the same statement.
+	+ Declare: When you define the variable (**without assign** a value to it)
+	+ Initialize: When you assign a value to it
+
+```java
+//Declaring 4 variables AND Initializing 2 variables
+   String s1, s2;
+   String s3 = "yes", s4 = "no";
+```
+
+* Things to keep in mind while declaring / initializing multiple variables
+
+```java
+1 - //Each snippet separated by a comma is a little declaration of its own
+int i1, i2, i3 = 0;
+//Three variables were declared BUT the initialization of i3 only applies to i3. It doesn’t have anything to do with i1 or i2 despite being in the same statement.
+
+
+2 - // The shortcut to declare multiple variables in the same statement is legal only when they share a type.
+int num, String value; // DOES NOT COMPILE
+```
+
+* Examples
+
+```java
+4: boolean b1, b2; // LEGAL
+5: String s1 = "1", s2; //LEGAL
+6: double d1, double d2; //ILEGAL: If you want to declare multiple variables in the same statement, they must share the same type declaration and not repeat it.
+7: int i1; int i2; // LEGAL
+8: int i3; i4; // ILEGAL: Missing i4 type, since we have ";" it's a completely different statement
+```
 
 
