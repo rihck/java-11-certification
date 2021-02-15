@@ -22,6 +22,9 @@
 - <a href="#chapter2">2 - Java Building Blocks
 	+ <a href="#c2-creating-objects">Creating Objects & Constructors</a>
 	+ <a href="#c2-reading-fields">Reading and Writing Member Fields</a> 
+	+ <a href="#c2-initializer-block">Instance Initializer Blocks</a> 
+		+  <a href="#c2-initializer-order">Following Order of Initialization</a> 
+	+ <a href="#c2-understanding-data-types">Understanding Data Types</a> 
 
 ## Intro
 
@@ -306,4 +309,54 @@ public class Swan {
    }
 }
 ```
+<a id="c2-initializer-blocks"/></a>
+### Instance Initializer Blocks
+* When we're writing code, we usually see braces (`{}`), code between braces is called a `code block`, so if you see braces, the code between them is a `code block`. Code block can be:
+	+ Inside a method: These are run when the method is called
+	+ Outside a method: These are called **instance initializers**, they are not attached to a method and are run in the order in which they appear in the file.	 
+
+```java
+//In this code we have 4 code blocks and only ONE instance initializer
+1: public class Bird { //Code-block
+2:    public static void main(String[] args) {//Code-block
+3:       { System.out.println("Feathers"); } //Codeblock (Inner): NOT instance initializer
+4:    }
+5:    { System.out.println("Snowy"); } //*Codeblock: Instance initializer*
+6: }
+```
+<a id="c2-initializer-order"/></a>
+#### Following Order of Initialization
+* We can write a code that initialize fields in multiple places, so we need to pay attention to the order of initialization rules
+	+ Fields and instance initializer blocks are run in the order in which they appear in the file.
+	+ The constructor runs after all fields and instance initializer blocks have run.
+
+```java
+1:  public class Chick {
+2:     private String name = "Fluffy";
+3:     { System.out.println("setting field"); }
+4:     public Chick() {
+5:        name = "Tiny";
+6:        System.out.println("setting constructor");
+7:     }
+8:     public static void main(String[] args) {
+9:        Chick chick = new Chick();
+10:       System.out.println(chick.name); 
+11:    } 
+12:}
+
+//Output (in Order)
+setting field
+setting constructor
+Tiny
+```
+
+* Order matters for the fields and blocks of code. You can’t refer to a variable before it has been defined:
+
+```java
+{ System.out.println(name); }  // DOES NOT COMPILE
+private String name = "Fluffy";
+```
+
+<a id="c2-understanding-data-types"/></a>
+### Understanding Data Types
 
