@@ -21,9 +21,9 @@
 	
 - <a href="#chapter2">2 - Java Building Blocks
 	+ <a href="#c2-creating-objects">Creating Objects & Constructors</a>
-	+ <a href="#c2-reading-fields">Reading and Writing Member Fields</a> 
-	+ <a href="#c2-initializer-block">Instance Initializer Blocks</a> 
-		+ <a href="#c2-initializer-order">Following Order of Initialization</a> 
+		+ <a href="#c2-reading-fields">Reading and Writing Member Fields</a> 
+		+ <a href="#c2-initializer-block">Instance Initializer Blocks</a> 
+			+ <a href="#c2-initializer-order">Following Order of Initialization</a> 
 	+ <a href="#c2-understanding-data-types">Understanding Data Types</a> 
 		+ <a href="#c2-primitive-types">Primitive Types</a> 
 		+ <a href="#c2-short-char">Signed and Unsigned: short and char</a> 
@@ -31,10 +31,19 @@
 			+ <a href="#c2-literals_underscore">Literals and the Underscore Character</a> 
 		+ <a href="#c2-reference-types">Reference Types</a> 
 			+ <a href="#c2-primitive-and-reference-types">Distinguishing between Primitives and Reference Types</a> 
-		+ <a href="#c2-declaring-variables">Declaring Variables</a> 
-			+ <a href="#c2-identifiers">Identifying Identifiers</a> 
-			+ <a href="#c2-camel-snake-case">CamelCase and Snake-Case</a> 
-			+ <a href="#c2-multiple-variables">Declaring Multiple Variables</a> 
+	+ <a href="#c2-declaring-variables">Declaring Variables</a> 
+		+ <a href="#c2-identifiers">Identifying Identifiers</a> 
+		+ <a href="#c2-camel-snake-case">CamelCase and Snake-Case</a> 
+		+ <a href="#c2-multiple-variables">Declaring Multiple Variables</a> 
+		
+	+ <a href="#c2-init-variables">Initializing Variables</a>
+		+ <a href="#c2-local-variables">Creating Local Variables</a> 
+		+ <a href="#c2-instance-class-variables">Defining Instance and Class Variables</a>   
+		+ <a href="#c2-introduce-var">Introducing var</a>   
+			+ <a href="#c2-inferences-var">Type Inference of var</a>  
+			+ <a href="#c2-warnings-using-var">Things to keep in mind while using var (rules)</a>  
+			+ <a href="#c2-var-and-null">var and null</a>  
+			+ <a href="#c2-review-var-rules">Review of var Rules</a>  
 
 ## Intro
 
@@ -532,7 +541,10 @@ String s = null;
 	double public;       // public is a reserved word
 	short _;             // a single underscore is not allowed
 	```
-
+	
+	**Exame Tip**: 
+	> var is not a reserved word, just a reserved type. It can be used as an identifier except as a class, interface, or enum name.
+	
 <a id="c2-camel-snake-case"/></a>
 #### Styles: CamelCase and Snake-Case 
 * Camel Case: The first letter of each word is capitalized.
@@ -574,5 +586,194 @@ int num, String value; // DOES NOT COMPILE
 7: int i1; int i2; // LEGAL
 8: int i3; i4; // ILEGAL: Missing i4 type, since we have ";" it's a completely different statement
 ```
+
+<a id="c2-init-variables"/></a>
+### Initializing Variables
+* Before you can use a variable, it needs a value. Some types of variables get this value set automatically, and others require the programmer to specify it.
+
+<a id="c2-local-variables"/></a>
+#### Creating Local Variables
+• A **local variable** is a variable defined within a constructor, method, or initializer block. Local variables *do not have a default value* and must be initialized before use.
+```java
+4: public int notValid() {
+5:    int y = 10; // Initializing
+6:    int x;      // Not Initializing
+7:    int reply = x + y; // DOES NOT COMPILE (because we didn't initialize x)
+8:    return reply;
+9: }
+
+//Compiler error:
+Test.java:7: variable x might not have been initialized
+```
+
+* The important thing is initialize the variable before using it, you can do it when declaring or doing it in a latter point in the code. 
+
+* If there's a flow where the variable can be used without being initialized, the compiler will identify it
+
+```java
+public void testMethod(boolean checkValue){
+	int checkValue;
+	if(checkValue) {
+		checkValue = 1;
+	}
+	
+	System.out.println(checkValue); //DOES NOT COMPILE
+
+	// Compile identifies there's a flow that the variable might not be initialized (if the code does not enter the if)
+}
+```
+
+* Initialization rules also apply to constructors and methods. In other words, they are like local variables and need to initialized before the method/constructor is called using them as parameters.
+
+```java
+public void test() {
+   int answer;
+   anotherMethod(answer);  // DOES NOT COMPILE (var not initilized)
+}
+```
+
+**Exame Tip**: 
+> Be wary of any local variable that is declared but not initialized in a single line. This is a common place on the exam that could result in a “Does not compile” answer. You are not required to initialize the variable on the same line it is defined, but be sure to check to make sure it’s initialized before it’s used on the exam.
+
+<a id="c2-instance-class-variables"/></a>
+#### Defining Instance and Class Variables
+* Variables that are not local variables are defined either as instance variables or as class variables.
+
+
+Variable | Value | Example
+------- | ------- | -------
+Instance | Defined within a specific instance of an Object</br>Each instance can have different values on the "same" attribute | String name;
+Class    | Defined on the class level and shared among all instances of the class.</br>They're part of the class, not the instance. All instances will have the same value for that attribute | **static** String name;
+
+A variable is a class variable if it has the static keyword in its declaration.
+
+* Instance and class variables *do not require you to initialize them*. As soon as you declare these variables, they *are given a default value*.
+
+**Exame Tip**: 
+> You’ll need to memorize everything in this table except the default value of char.
+
+Variable Type | Default initialization value
+------- | -------
+boolean | false
+byte, short, int, long | 0
+float, double | 0.0
+char | '\u0000' (NUL)
+All object references (everything else) | null
+
+<a id="c2-introduce-var"/></a>
+#### Introducing var
+* Starting in Java 10, you have the option of using the keyword var instead of the type for local variables under certain conditions. </br>The formal name of this feature is **local variable type inference**.
+
+> You can only use this feature for **local variables**.
+
+```java
+public class VarKeyword {
+	//Does not work for instance variables
+   var tricky = "Hello"; // DOES NOT COMPILE
+   
+   public void myMethod(){
+   	//Works fine because they're local variables
+   	var myVariable = "Mine";
+   	var mySecondVariable = 2;
+   }
+}
+
+```
+
+<a id="c2-inferences-var"/></a>
+#### Type Inference of var
+* Java will inference the variable type based on the variable value **BUT** the type of var can’t change at runtime, ex:
+
+```java
+7:  public void reassignment() {
+8:     var number = 1;
+9:     number = 2;
+10:    number = "tree";  // DOES NOT COMPILE
+11: }
+```
+
+* Another example
+
+```java
+var apples = (short)10;
+// byte can be automatically promoted to a short, because a byte is small enough that it can fit inside of short.
+apples = (byte)5;
+
+// One million is well beyond the limits of short.
+// The compiler treats the value as an int (we're changing the type)
+apples = 1_000_000;  // DOES NOT COMPILE
+```
+
+We’ll cover numeric promotion and casting in Chapter 3
+> For now, we just need to know that the value for a var can change after it is declared but the type never does.
+
+<a id="c2-warnings-using-var"/></a>
+#### Things to keep in mind while using var (rules)
+* While declaring a var you **and MUST initialize** it in the same line
+
+```java
+// DOES NOT COMPLITE
+var size;
+size = 1;
+
+// COMPILES
+var size = 1;
+
+// Line breaks are considered to be on the same line (as long we don't have ";")
+var size
+	= 2;
+```
+
+* Java does **NOT allow var** in multiple variable declarations.
+
+```java
+var a = 2, b = 3;  // DOES NOT COMPILE
+```
+The multiple variable declarations *syntax is right* considered what we saw in the past, *but var is not allowed* to do it.
+
+* Java does **NOT allow var** to infer the type of `null`. **It's allowed ONLY IF** you specify the Type
+
+```java
+var n = null;         // DOES NOT COMPILE
+
+var n = (String)null; //COMPILES
+```
+Java creators didn't allow only `null` because it could be any reference type (object).
+
+* Java does **NOT allow var** in: `method parameters` (signature), `constructors` (signature), `instance variables` and `class variables` *because they're NOT LOCAL variables*.
+
+```java
+public int addition(var a, var b) {  // DOES NOT COMPILE
+   return a + b;
+}
+```
+
+<a id="c2-var-and-null"/></a>
+#### var and null
+* While a var cannot be initialized with a null value without a type, it can be assigned a null value after it is declared
+
+```java
+//String can be null so we're not changing types, and we can assign null because compiler knows we're dealing with a String
+var a = "myData";
+a = null; //COMPILES
+
+// We can't assign to null because compiler knows we're dealing with a primitive (int), and primitives cannot point to null
+var b = 4;
+b = null;  // DOES NOT COMPILE
+```
+
+<a id="c2-review-var-rules"/></a>
+#### Review of var Rules
+* A var is used as a local variable in a constructor, method, or initializer block. 
+* A var cannot be used in constructor parameters, method parameters, instance variables, or class variables. 
+* A var is always initialized on the same line (or statement) where it is declared. 
+* The value of a var can change, but the type cannot. 
+* A var cannot be initialized with a null value without a type. 
+* A var is not permitted in a multiple-variable declaration. 
+* A var is a reserved type name but not a reserved word, meaning it can be used as an identifier except as a class, interface, or enum name.
+
+**Exame Tip**:
+> Since var is new to Java since the last exam, expect to see it used frequently on the exam.
+
 
 
