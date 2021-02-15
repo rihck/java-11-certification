@@ -776,4 +776,99 @@ b = null;  // DOES NOT COMPILE
 > Since var is new to Java since the last exam, expect to see it used frequently on the exam.
 
 
+### Managing Variable Scope
+* Remember that the variable scope is based on the code-block it's defined. Blocks can contain other blocks.
+
+#### Limiting, Nesting and Tracing Scope
+```java
+16: public void eatIfHungry(boolean hungry) {
+17:    if (hungry) {
+18:       int bitesOfCheese = 1;
+19:       {
+20:          var teenyBit = true;
+21:          System.out.println(bitesOfCheese); //COMPILES
+22:       }
+23:    }
+24:    System.out.println(teenyBit);  // DOES NOT COMPILE (variable out of scope)
+25: }
+```
+
+* Let's trace the method above and define what are the escopes
+
+Line | First line in block | Last line in block | Obs
+------- | ------- | ------- | -------
+Method | 16 | 25 | as *hungry* is method parameter, it can be accessed inside all the method scope
+if | 17 | 23 | *bitesOfCheese* only exist on IF scope
+{ | 19 | 22 | *teenyBit* only exist on "*{ }*" scope
+
+Variables declared inside in a scope will exist only in there, but remember *that smaller contained blocks can reference variables defined in the larger scoped blocks* BUT **not vice versa**
+
+**Exame Tip**:
+> You’ll want to practice this skill a lot! Identifying blocks and variable scope needs to be second nature for the exam.
+
+#### Applying Scope to Classes
+* When we're talking about variable scopes in classes we have:
+	+ *Instance Variables*: They are available as soon as they are defined and _last for the entire lifetime of the object itself_.
+	+ *Class Variables (static)*: They go into scope when declared like the other variable types. However, they _stay in scope for the entire life of the program._
+
+```java
+1:  public class Mouse {
+2:     final static int MAX_LENGTH = 5; //Class variable
+3:     int length;                      //Instance variable
+
+4:     public void grow(int inches) { //"inches" scope -> Method
+5:        if (length < MAX_LENGTH) { //"newSize" scope -> IF
+6:           int newSize = length + inches;
+7:           length = newSize;
+8:        }
+9:     }
+10: }
+```
+
+#### Reviewing Scope
+* Local variables: In scope from declaration to end of block 
+* Instance variables: In scope from declaration until object eligible for garbage collection 
+* Class variables: In scope from declaration until program ends
+
+### Destroying Objects
+Java provides a garbage collector to automatically look for objects that aren’t needed anymore.
+
+* All **Java objects are stored** in your program *memory’s heap*. The heap, which is also referred to as the free store, represents a large pool of unused memory allocated to your Java application. The heap may be quite large, depending on your environment, but there is always a limit to its size.
+
+#### Understanding Garbage Collection
+* *Garbage collection* refers to the process of automatically freeing memory on the heap by deleting objects that are no longer reachable in your program.
+
+#### Eligible for Garbage Collection
+* *Eligible for garbage collection* refers to an object’s state of no longer being accessible
+* When the object actually is discarded is not under your control, but for the exam, *we you will need to know* at any given moment which objects are eligible for garbage collection.
+* As a programmer, what we can do to limit out-of-memory problems is to *make sure objects are eligible for garbage collection once they are no longer needed*. It is the JVM’s responsibility to actually perform the garbage collection.
+
+
+#### Calling System.gc()
+Java includes a built-in method to help support garbage collection that can be called at any time `System.gc();`
+
+* It only suggests JVM to run the GC, but it JVM is free to ignore the request.
+* It's not guaranteed that JVM will try to run your request
+
+
+#### Tracing Eligibility
+The JVM waits patiently and monitors each object until it determines that the code no longer needs that memory. An object will remain on the heap until it is no longer reachable. It's not reachable when:
+
+* The object no longer has any references pointing to it. 
+* All references to the object have gone out of scope.
+
+**PS:** Check the book on `Page 66` for more visual examples.
+
+#### Objects vs. References
+* Object: Sits on the heap and does not have a name. Therefore, you have no way to access an object except through a reference.
+* Reference: reference is a variable that has a name and can be used to access the contents of an object. A reference can be assigned to another reference, passed to a method, or returned from a method.
+
+**PS:** References may or may not be created on the heap, all references are the same size no matter they data type, and .
+
+#### finalize()
+**This topic is no longer on the exam.** 
+
+* Java allows objects to implement a method called finalize(), the garbage collector would call the finalize() method once.
+* Just remember that finalize() can run zero or one times. It cannot run twice.
+
 
