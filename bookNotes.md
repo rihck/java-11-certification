@@ -18,6 +18,10 @@
 	+ <a href="#c1-redundant">Redundant Imports</a>
 	+ <a href="#c1-conflict">Conflict Imports</a>
 	+ <a href="#c1-formating">Code Formatting on the Exam</a>
+	
+- <a href="#chapter2">2 - Java Building Blocks
+	+ <a href="#c2-creating-objects">Creating Objects & Constructors</a>
+	+ <a href="#c2-reading-fields">Reading and Writing Member Fields</a> 
 
 ## Intro
 
@@ -250,4 +254,56 @@ Not all questions will include package declarations and imports. Don’t worry a
 	+ Code that begins with a code snippet that would normally be inside a class or method 
 	+ Code that has line numbers that **don’t begin with 1**
 
+
+<a id="chapter2"/></a>
+## _Chapter 2:  Java Building Blocks_ 
+<a id="c2-creating-objects"/></a>
+### Creating Objects & Constructors: 
+* *An object is an instance of a class.* To create an instance of a class, all you have to do is write new before the class name and add parentheses after it.
+
+```java
+Park p = new Park();
+// "Park" is the class
+// "p" is the object
+```
+First you declare the type that you’ll be creating **(Park)** and give the variable a name **(p)**. This gives Java a place to store a reference to the object. Then you write **new Park()** to actually create the object.
+
+* **Park()** looks like a method since it is followed by parentheses. **It’s called a constructor**, which is a special type of method that creates a new object.We can create our own:
+
+* The name of the constructor matches the name of the class, and there’s no return type.
+
+* We usually use constructor to initialize fields but you can also do it where you declare the fields
+
+```java
+//Valid constructor
+public class Chick {
+	int numEggs = 12;  // initialize on line
+	String name;
+
+   public Chick() {
+		name = "Duke";  // initialize in constructor
+   }
+}
+
+//Invalid constructor (has return type)
+public void Chick() { }  // NOT A CONSTRUCTOR
+```
+
+If the class doesn't have a constructor, the compiler will supply a “do nothing” default constructor.
+
+<a id="c2-reading-fields"/></a>
+### Reading and Writing Member Fields
+* We can read and write instance variables directly from the caller.
+
+```java
+public class Swan {
+   int numberEggs;                            // instance variable
+   int plusEggs = numberEggs + 1;             // It's also possible
+   public static void main(String[] args) {
+      Swan mother = new Swan();
+      mother.numberEggs = 1;                  // set variable (setting)
+      System.out.println(mother.numberEggs);  // read variable (getting)
+   }
+}
+```
 
