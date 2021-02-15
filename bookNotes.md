@@ -25,10 +25,12 @@
 	+ <a href="#c2-initializer-block">Instance Initializer Blocks</a> 
 		+ <a href="#c2-initializer-order">Following Order of Initialization</a> 
 	+ <a href="#c2-understanding-data-types">Understanding Data Types</a> 
-		+ <a href="#c2-primitive-types">The primitive types</a> 
+		+ <a href="#c2-primitive-types">Primitive Types</a> 
 		+ <a href="#c2-short-char">Signed and Unsigned: short and char</a> 
 		+ <a href="#c2-writing-literals">Writing literals</a>
 			+ <a href="#c2-literals_underscore">Literals and the Underscore Character</a> 
+		+ <a href="#c2-primitive-and-reference-types">Reference Types</a> 
+			+ <a href="#c2-reference-types">Distinguishing between Primitives and Reference Types</a> 
 
 ## Intro
 
@@ -440,9 +442,53 @@ Binary | 0 - 1 | uses the number 0 followed by b or B as a prefix | 0b10, 0B10 |
 	double reallyUgly = 1__________2;      // Also compiles (you can place multiple underscore characters)
 	```
 
+<a id="c2-reference-types"/></a>
+### Reference Types
+* A reference type refers to an object (an instance of a class). Unlike primitive types that hold their values in the memory where the variable is allocated, references do not hold the value of the object they refer to.
+
+* Examples that declare and initialize reference types.
+
+```java
+////variable is a reference of type Date and can only point to a Date object.
+java.util.Date today; 
+
+//variable is a reference that can only point to a String object.
+String greeting; 
+```
+
+* A value is assigned to a reference in one of two ways:
+
+```java
+// 1 - A reference can be assigned to a new object using the new keyword.
+java.util.Date today = new java.util.Date();
+// It will create a new object in memory and assign the "pointer" to our variable
 
 
+// 2 - A reference can be assigned to another object of the same or compatible type.
+java.util.Date randomDate = new java.util.Date();
+java.util.Date today = randomDate;
+//Here we have 2 references pointing to the same object
+```
 
+<a id="c2-primitive-and-reference-types"/></a>
+#### Distinguishing between Primitives and Reference Types
+
+Differences | Reference Type | Primitive Type
+------- | ------- | -------
+Can assign to null | Yes | No
+Can be used to call methods | Yes | No
+Lower / Upper Case | All classes that come with Java begin with uppercase.</br> Not required but standard for new classes | Have lowercase type names
+
+**PS**: You only call methods from Reference Type assuming the reference is not null, otherwise you'll face a `NullPointer`
+
+```java
+int value = null;   // DOES NOT COMPILE (can't assign primitive to null)
+String s = null;
+
+4: String reference = "hello";
+5: int len = reference.length();
+6: int bad = len.length(); // DOES NOT COMPILE (primitive doesn't have methods)
+```
 
 
 
