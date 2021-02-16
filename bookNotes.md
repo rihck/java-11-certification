@@ -44,6 +44,19 @@
 			+ <a href="#c2-warnings-using-var">Things to keep in mind while using var (rules)</a>  
 			+ <a href="#c2-var-and-null">var and null</a>  
 			+ <a href="#c2-review-var-rules">Review of var Rules</a>  
+	
+	+ <a href="#c2-managing-var-scope">Managing Variable Scope</a>
+		+  <a href="#c2-limiting-var-scope">Limiting, Nesting and Tracing Scope</a>
+		+  <a href="#c2-apply-var-scope-class">Applying Scope to Classes</a>
+		+  <a href="#c2-reviewing-var-scope">Reviewing Scope</a>
+
+	+  <a href="#c2-destroying-objects">Destroying Objects</a>
+		+  <a href="#c2-garbage-collection">Understanding Garbage Collection</a>
+		+  <a href="#c2-eligible-garbage-collection">Eligible for Garbage Collection</a>
+		+  <a href="#c2-calling-gc">Calling System.gc()</a>
+		+  <a href="#c2-tracing-eligibility">Tracing Eligibility</a>
+		+  <a href="#c2-objects-and-references">Objects vs. References</a>
+		+  <a href="#c2-gc-finalize">Calling finalize()</a>
 
 ## Intro
 
@@ -71,7 +84,7 @@ We'll be using [this Book](https://www.amazon.com/gp/product/B08DF4R2V9/ref=ppx_
 ```
 PS: Comments can be defined anywhere in the code
 
--------
+---
 <a id="c1-class-structure"/></a>
 ###  Class structure
 * You can put two classes in the same file. When you do so, at most one of the classes in the file is allowed to be public. If you do have a public class, it needs to match the filename.
@@ -90,7 +103,7 @@ Field declarations | int value; | No | Any top-level element in a class
 Method declarations | void method(); | No | Any top-level element in a class
  
 
--------
+---
 <a id="c1-main"/></a>
 ###  Main method
 * The main() method lets the JVM call our code. If it doesn't have, the `java` CLI command will throw an error
@@ -116,7 +129,7 @@ Method declarations | void method(); | No | Any top-level element in a class
 
 	+ The args you receive on main starts with 0, if you want to access the first param you should do `args[0]`
 	
--------
+---
 <a id="c1-javac-cli"/></a>
 ### JAVAC CLI 
 * You use to compile a `.java` file into `.class` file, so it run anywhere using JVM
@@ -138,7 +151,7 @@ Option | Description |
 --- | --- 
 | -cp "classpath" <br/>  -classpath "casspath" <br/> --class-path "classpath" | Location of classes needed to compile the program
 
--------
+---
 <a id="c1-java-cli"/></a>
 ###  JAVA CLI
 * You use to run a `.class` file. 
@@ -161,7 +174,7 @@ java Zoo "One Parameter"
 java Zoo.java
 ```
 
--------
+---
 <a id="c1-possible-running"/></a>
 #### Possible ways of running programs
 
@@ -181,7 +194,7 @@ Option | Description |
 | -d "dir" | Directory to place generated class files
 
 
--------
+---
 <a id="c1-jar-cli"/></a>
 ###  JAR CLI
 * A Java archive (JAR) file is like a zip file of mainly Java class files.
@@ -212,7 +225,7 @@ Option | Description |
 | -f "fileName" <br/> --file "fileName" <br/>  | JAR filename
 | -C <br/>   					 | Directory containing files to be used to create the JAR
 
--------
+---
 <a id="c1-wildcards"/></a>
 ### Wildcards
 * Classes in the same package are often imported together. You can use a shortcut to import all the classes in a package.
@@ -238,7 +251,7 @@ import java.nio.file.Files.*; // You cannot import methods, only class names
 ### Redundant Imports
 * There’s one special package `java.lang`, this package is automatically imported **(we don't need to explicit import it)**. Inside this package we can find the `System` class for example
 
--------
+---
 <a id="c1-conflict"/></a>
 ### Conflict Imports
 * You can face conflict imports when trying to import classes with the same name in different packages
@@ -265,7 +278,8 @@ import java.sql.*;
 2 - Put the full package reference on the code you're using that class
 java.sql.Date sqlDate;
 ```
--------
+
+---
 <a id="c1-formating"/></a>
 ### Code Formatting on the Exam
 Not all questions will include package declarations and imports. Don’t worry about missing package statements or imports unless you are asked about them.
@@ -313,6 +327,7 @@ public void Chick() { }  // NOT A CONSTRUCTOR
 
 If the class doesn't have a constructor, the compiler will supply a “do nothing” default constructor.
 
+---
 <a id="c2-reading-fields"/></a>
 ### Reading and Writing Member Fields
 * We can read and write instance variables directly from the caller.
@@ -328,6 +343,8 @@ public class Swan {
    }
 }
 ```
+
+---
 <a id="c2-initializer-blocks"/></a>
 ### Instance Initializer Blocks
 * When we're writing code, we usually see braces (`{}`), code between braces is called a `code block`, so if you see braces, the code between them is a `code block`. Code block can be:
@@ -343,6 +360,8 @@ public class Swan {
 5:    { System.out.println("Snowy"); } //*Codeblock: Instance initializer*
 6: }
 ```
+
+---
 <a id="c2-initializer-order"/></a>
 #### Following Order of Initialization
 * We can write a code that initialize fields in multiple places, so we need to pay attention to the order of initialization rules
@@ -376,12 +395,14 @@ Tiny
 private String name = "Fluffy";
 ```
 
+---
 <a id="c2-understanding-data-types"/></a>
 ### Understanding Data Types
 * In java we have two types of data
 	+ **Reference types:** refers to an object (an instance of a class). A reference “points” to an object by storing the memory address where the object is located, a concept referred to as a pointer.
 	+ **Primitive Types:** A primitive is just a single value in memory, such as a number or character. A primitive is not an object in Java nor does it represent an object. 
 	
+---
 <a id="c2-primitive-types"/></a>
 #### The primitive types
 * Java has eight built-in primitive types. These eight data types represent the building blocks for Java objects, because all Java objects are just a complex collection of these primitive data types.
@@ -404,6 +425,7 @@ Keyword | Type | Example
 	+ Each numeric type uses twice as many bits as the smaller similar type. For example, short uses twice as many bits as byte does.
 	+ All of the numeric types are signed in Java. This means that they reserve one of their bits to cover a negative range. For example, byte ranges from -128 to 127. Don’t forget, 0 needs to be accounted for too in the range.
 
+---
 <a id="c2-short-char"/></a>
 #### Signed and Unsigned: short and char
 * Short and Char are closely related, as both are stored as integral types with the same 16-bit length.
@@ -417,6 +439,7 @@ Since 0 needs to be included in the range, Java takes it away from the positive 
 
 * Floating-point values like double and float are not easy to calculate but don’t worry, for the exam you are not required to know how floating-point values are stored.
 
+---
 <a id="c2-writing-literals"/></a>
 #### Writing literals
 * When a number is present in the code, it is called a literal. By default, Java assumes you are defining an int value with a numeric literal.
@@ -437,6 +460,7 @@ Binary | 0 - 1 | uses the number 0 followed by b or B as a prefix | 0b10, 0B10 |
 
 * Exam tip: We won’t need to convert between number systems on the exam. You’ll have to **recognize valid literal values that can be assigned to numbers.**
 
+---
 <a id="c2-literals_underscore"/></a>
 #### Literals and the Underscore Character
 * We can have underscores in literal numbers to make them easier to read: `int million2 = 1_000_000;`
@@ -455,6 +479,7 @@ Binary | 0 - 1 | uses the number 0 followed by b or B as a prefix | 0b10, 0B10 |
 	double reallyUgly = 1__________2;      // Also compiles (you can place multiple underscore characters)
 	```
 
+---
 <a id="c2-reference-types"/></a>
 ### Reference Types
 * A reference type refers to an object (an instance of a class). Unlike primitive types that hold their values in the memory where the variable is allocated, references do not hold the value of the object they refer to.
@@ -483,6 +508,7 @@ java.util.Date today = randomDate;
 //Here we have 2 references pointing to the same object
 ```
 
+---
 <a id="c2-primitive-and-reference-types"/></a>
 #### Distinguishing between Primitives and Reference Types
 
@@ -545,6 +571,7 @@ String s = null;
 	**Exame Tip**: 
 	> var is not a reserved word, just a reserved type. It can be used as an identifier except as a class, interface, or enum name.
 	
+---
 <a id="c2-camel-snake-case"/></a>
 #### Styles: CamelCase and Snake-Case 
 * Camel Case: The first letter of each word is capitalized.
@@ -553,6 +580,7 @@ String s = null;
 * Snake Case: Uses an underscore (_) to separate words, often entirely in lowercase.
 	+ Static final values and ENUM values tend to be written with snake_case
 
+---
 <a id="c2-multiple-variables"/></a>
 #### Declaring Multiple Variables
 * You can also declare and initialize multiple variables in the same statement.
@@ -587,6 +615,7 @@ int num, String value; // DOES NOT COMPILE
 8: int i3; i4; // ILEGAL: Missing i4 type, since we have ";" it's a completely different statement
 ```
 
+---
 <a id="c2-init-variables"/></a>
 ### Initializing Variables
 * Before you can use a variable, it needs a value. Some types of variables get this value set automatically, and others require the programmer to specify it.
@@ -635,6 +664,7 @@ public void test() {
 **Exame Tip**: 
 > Be wary of any local variable that is declared but not initialized in a single line. This is a common place on the exam that could result in a “Does not compile” answer. You are not required to initialize the variable on the same line it is defined, but be sure to check to make sure it’s initialized before it’s used on the exam.
 
+---
 <a id="c2-instance-class-variables"/></a>
 #### Defining Instance and Class Variables
 * Variables that are not local variables are defined either as instance variables or as class variables.
@@ -660,6 +690,7 @@ float, double | 0.0
 char | '\u0000' (NUL)
 All object references (everything else) | null
 
+---
 <a id="c2-introduce-var"/></a>
 #### Introducing var
 * Starting in Java 10, you have the option of using the keyword var instead of the type for local variables under certain conditions. </br>The formal name of this feature is **local variable type inference**.
@@ -680,6 +711,7 @@ public class VarKeyword {
 
 ```
 
+---
 <a id="c2-inferences-var"/></a>
 #### Type Inference of var
 * Java will inference the variable type based on the variable value **BUT** the type of var can’t change at runtime, ex:
@@ -707,6 +739,7 @@ apples = 1_000_000;  // DOES NOT COMPILE
 We’ll cover numeric promotion and casting in Chapter 3
 > For now, we just need to know that the value for a var can change after it is declared but the type never does.
 
+---
 <a id="c2-warnings-using-var"/></a>
 #### Things to keep in mind while using var (rules)
 * While declaring a var you **and MUST initialize** it in the same line
@@ -748,6 +781,7 @@ public int addition(var a, var b) {  // DOES NOT COMPILE
 }
 ```
 
+---
 <a id="c2-var-and-null"/></a>
 #### var and null
 * While a var cannot be initialized with a null value without a type, it can be assigned a null value after it is declared
@@ -762,6 +796,7 @@ var b = 4;
 b = null;  // DOES NOT COMPILE
 ```
 
+---
 <a id="c2-review-var-rules"/></a>
 #### Review of var Rules
 * A var is used as a local variable in a constructor, method, or initializer block. 
@@ -775,10 +810,12 @@ b = null;  // DOES NOT COMPILE
 **Exame Tip**:
 > Since var is new to Java since the last exam, expect to see it used frequently on the exam.
 
-
+---
+<a id="c2-managing-var-scope"/></a>
 ### Managing Variable Scope
 * Remember that the variable scope is based on the code-block it's defined. Blocks can contain other blocks.
 
+<a id="c2-limiting-var-scope"/></a>
 #### Limiting, Nesting and Tracing Scope
 ```java
 16: public void eatIfHungry(boolean hungry) {
@@ -806,6 +843,8 @@ Variables declared inside in a scope will exist only in there, but remember *tha
 **Exame Tip**:
 > You’ll want to practice this skill a lot! Identifying blocks and variable scope needs to be second nature for the exam.
 
+---
+<a id="c2-apply-var-scope-class"/></a>
 #### Applying Scope to Classes
 * When we're talking about variable scopes in classes we have:
 	+ *Instance Variables*: They are available as soon as they are defined and _last for the entire lifetime of the object itself_.
@@ -825,32 +864,42 @@ Variables declared inside in a scope will exist only in there, but remember *tha
 10: }
 ```
 
+---
+<a id="c2-reviewing-var-scope"/></a>
 #### Reviewing Scope
 * Local variables: In scope from declaration to end of block 
 * Instance variables: In scope from declaration until object eligible for garbage collection 
 * Class variables: In scope from declaration until program ends
 
+---
+<a id="c2-destroying-objects"/></a>
 ### Destroying Objects
 Java provides a garbage collector to automatically look for objects that aren’t needed anymore.
 
 * All **Java objects are stored** in your program *memory’s heap*. The heap, which is also referred to as the free store, represents a large pool of unused memory allocated to your Java application. The heap may be quite large, depending on your environment, but there is always a limit to its size.
 
+---
+<a id="c2-garbage-collection"/></a>
 #### Understanding Garbage Collection
 * *Garbage collection* refers to the process of automatically freeing memory on the heap by deleting objects that are no longer reachable in your program.
 
+---
+<a id="c2-eligible-garbage-collection"/></a>
 #### Eligible for Garbage Collection
 * *Eligible for garbage collection* refers to an object’s state of no longer being accessible
 * When the object actually is discarded is not under your control, but for the exam, *we you will need to know* at any given moment which objects are eligible for garbage collection.
 * As a programmer, what we can do to limit out-of-memory problems is to *make sure objects are eligible for garbage collection once they are no longer needed*. It is the JVM’s responsibility to actually perform the garbage collection.
 
-
+---
+<a id="c2-calling-gc"/></a>
 #### Calling System.gc()
 Java includes a built-in method to help support garbage collection that can be called at any time `System.gc();`
 
 * It only suggests JVM to run the GC, but it JVM is free to ignore the request.
 * It's not guaranteed that JVM will try to run your request
 
-
+---
+<a id="c2-tracing-eligibility"/></a>
 #### Tracing Eligibility
 The JVM waits patiently and monitors each object until it determines that the code no longer needs that memory. An object will remain on the heap until it is no longer reachable. It's not reachable when:
 
@@ -859,14 +908,18 @@ The JVM waits patiently and monitors each object until it determines that the co
 
 **PS:** Check the book on `Page 66` for more visual examples.
 
+---
+<a id="c2-objects-and-references"/></a>
 #### Objects vs. References
 * Object: Sits on the heap and does not have a name. Therefore, you have no way to access an object except through a reference.
 * Reference: reference is a variable that has a name and can be used to access the contents of an object. A reference can be assigned to another reference, passed to a method, or returned from a method.
 
-**PS:** References may or may not be created on the heap, all references are the same size no matter they data type, and .
+**PS:** References may or may not be created on the heap, all references are the same size no matter they data type.
 
+---
+<a id="c2-gc-finalize"/></a>
 #### finalize()
-**This topic is no longer on the exam.** 
+> This topic is no longer on the exam.
 
 * Java allows objects to implement a method called finalize(), the garbage collector would call the finalize() method once.
 * Just remember that finalize() can run zero or one times. It cannot run twice.
