@@ -316,9 +316,9 @@ public class Chick {
 	int numEggs = 12;  // initialize on line
 	String name;
 
-   public Chick() {
+  public Chick() {
 		name = "Duke";  // initialize in constructor
-   }
+  }
 }
 
 //Invalid constructor (has return type)
@@ -418,8 +418,10 @@ Keyword | Type | Example
 | double | 64-bit floating-point value | 123.456
 | char | 16-bit Unicode value | 'a'
 
--> **PS I**: **String** *IS NOT* a Primitive =) 
--> **PS II**: You won’t be asked about the exact sizes of most of these types, although you should know that a byte can hold a value from –128 to 127.
+**PS**: **String** *IS NOT* a Primitive :no_entry_sign:
+
+:exclamation: **Exame Tip:**
+> You won’t be asked about the exact sizes of most of these types, although you should know that a byte can hold a value from –128 to 127.
 
 * Some notes about this table:
 	+ Each numeric type uses twice as many bits as the smaller similar type. For example, short uses twice as many bits as byte does.
