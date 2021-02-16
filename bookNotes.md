@@ -809,13 +809,13 @@ b = null;  // DOES NOT COMPILE
 ---
 <a id="c2-review-var-rules"/></a>
 #### Review of var Rules
-* :ballot_box_with_check: A var is used as a local variable in a constructor, method, or initializer block. 
-* :ballot_box_with_check: A var cannot be used in constructor parameters, method parameters, instance variables, or class variables. 
-* :ballot_box_with_check: A var is always initialized on the same line (or statement) where it is declared. 
-* :ballot_box_with_check: The value of a var can change, but the type cannot. 
-* :ballot_box_with_check: A var cannot be initialized with a null value without a type. 
-* :ballot_box_with_check: A var is not permitted in a multiple-variable declaration. 
-* :ballot_box_with_check: A var is a reserved type name but not a reserved word, meaning it can be used as an identifier except as a class, interface, or enum name.
+*  A var can be used as a local variable in a constructor, method, or initializer block. 
+*  A var *cannot be used* in constructor parameters, method parameters, instance variables, or class variables. 
+*  A var is *always initialized* on the same line (or statement) where it is declared. 
+*  The *value of a var* can change, but the *type cannot*. 
+*  A *var cannot* be initialized with a null value without a type. 
+*  A *var is not permitted* in a multiple-variable declaration. 
+*  A var *is a reserved type name but not a reserved word*, meaning it can be used as an identifier except as a class, interface, or enum name.
 
 :bangbang: **Exam Tip:**
 > Since var is new to Java since the last exam, expect to see it used frequently on the exam.
@@ -877,9 +877,9 @@ Variables declared inside in a scope will exist only in there, but remember *tha
 ---
 <a id="c2-reviewing-var-scope"/></a>
 #### Reviewing Scope
-* :ballot_box_with_check: Local variables: In scope from declaration to end of block 
-* :ballot_box_with_check: Instance variables: In scope from declaration until object eligible for garbage collection 
-* :ballot_box_with_check: Class variables: In scope from declaration until program ends
+*  Local variables: In scope from declaration to end of block 
+*  Instance variables: In scope from declaration until object eligible for garbage collection 
+*  Class variables: In scope from declaration until program ends
 
 ---
 <a id="c2-destroying-objects"/></a>
@@ -913,8 +913,8 @@ Java includes a built-in method to help support garbage collection that can be c
 #### Tracing Eligibility
 The JVM waits patiently and monitors each object until it determines that the code no longer needs that memory. An object will remain on the heap until it is no longer reachable. It's not reachable when:
 
-* :ballot_box_with_check: The object no longer has any references pointing to it. 
-* :ballot_box_with_check: All references to the object have gone out of scope.
+*  The object no longer has any references pointing to it. 
+*  All references to the object have gone out of scope.
 
 **PS:** Check the book on `Page 66` for more visual examples.
 
