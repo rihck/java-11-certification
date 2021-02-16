@@ -295,20 +295,21 @@ Not all questions will include package declarations and imports. Don’t worry a
 ## _Chapter 2:  Java Building Blocks_ 
 <a id="c2-creating-objects"/></a>
 ### Creating Objects & Constructors: 
-* *An object is an instance of a class.* To create an instance of a class, all you have to do is write new before the class name and add parentheses after it.
-
+* *An object is an instance of a class.* To create an instance of a class, all you have to do is write new before the class name and add parentheses after it. Ex:
+	+ First you declare the type that you’ll be creating `Park` 
+	+ Give the variable a name `p`. This gives Java a place to store a reference to the object. 
+	+ Then you write `new Park()` to actually create the object.
+	
 ```java
 Park p = new Park();
 // "Park" is the class
 // "p" is the object
 ```
-First you declare the type that you’ll be creating **(Park)** and give the variable a name **(p)**. This gives Java a place to store a reference to the object. Then you write **new Park()** to actually create the object.
 
-* **Park()** looks like a method since it is followed by parentheses. **It’s called a constructor**, which is a special type of method that creates a new object.We can create our own:
-
-* The name of the constructor matches the name of the class, and there’s no return type.
-
-* We usually use constructor to initialize fields but you can also do it where you declare the fields
+* Some Notes
+	+ `Park()` looks like a method since it is followed by parentheses. **It’s called a constructor**, which is a special type of method that creates a new object. We can create our own.
+	+ The name of the constructor matches the *name of the class, and there’s no return type*.
+	+ We usually use constructor to initialize fields but you can also do it where you declare the fields
 
 ```java
 //Valid constructor
@@ -325,7 +326,7 @@ public class Chick {
 public void Chick() { }  // NOT A CONSTRUCTOR
 ```
 
-If the class doesn't have a constructor, the compiler will supply a “do nothing” default constructor.
+> If the class doesn't have a constructor, the compiler will supply a “do nothing” default constructor.
 
 ---
 <a id="c2-reading-fields"/></a>
@@ -348,8 +349,8 @@ public class Swan {
 <a id="c2-initializer-blocks"/></a>
 ### Instance Initializer Blocks
 * When we're writing code, we usually see braces (`{}`), code between braces is called a `code block`, so if you see braces, the code between them is a `code block`. Code block can be:
-	+ Inside a method: These are run when the method is called
-	+ Outside a method: These are called **instance initializers**, they are not attached to a method and are run in the order in which they appear in the file.	 
+	+ *Inside a method:* These are run when the method is called
+	+ *Outside a method:* These are called **instance initializers**, they are not attached to a method and are run in the order in which they appear in the file.	 
 
 ```java
 //In this code we have 4 code blocks and only ONE instance initializer
@@ -365,8 +366,8 @@ public class Swan {
 <a id="c2-initializer-order"/></a>
 #### Following Order of Initialization
 * We can write a code that initialize fields in multiple places, so we need to pay attention to the order of initialization rules
-	+ Fields and instance initializer blocks are run in the order in which they appear in the file.
-	+ The constructor runs after all fields and instance initializer blocks have run.
+	+ *Fields and instance initializer blocks* are run in the order in which they appear in the file.
+	+ *The constructor* runs after all fields and instance initializer blocks have run.
 
 ```java
 1:  public class Chick {
@@ -420,7 +421,7 @@ Keyword | Type | Example
 
 **PS**: **String** *IS NOT* a Primitive :no_entry_sign:
 
-:bangbang: **Exame Tip:**
+:bangbang: **Exam Tip:**
 > You won’t be asked about the exact sizes of most of these types, although you should know that a byte can hold a value from –128 to 127.
 
 * Some notes about this table:
@@ -436,7 +437,9 @@ Keyword | Type | Example
 	+ char can hold a higher positive numeric value than short, but cannot hold any negative numbers.
 
 * A **byte is 8 bits**. A bit has two possible values. (These are basic computer science definitions that you should memorize.) 
-*2^8* = `2 × 2 = 4 × 2 = 8 × 2 = 16 × 2 = 32 × 2 = 64 × 2 = 128 × 2 = 256`. 
+```java
+2^8 = 2 × 2 = 4 × 2 = 8 × 2 = 16 × 2 = 32 × 2 = 64 × 2 = 128 × 2 = 256 
+```
 Since 0 needs to be included in the range, Java takes it away from the positive side. Or if you don’t like math, you can just memorize it.
 
 * Floating-point values like double and float are not easy to calculate but don’t worry, for the exam you are not required to know how floating-point values are stored.
@@ -460,7 +463,7 @@ Octal | 0 - 7 | uses the number 0 as a prefix | 017
 Hexadecimal | 0 - 9 and letter A-F/a-f | uses 0x or 0X as a prefix | 0xFF, 0xff, 0XFf | case insensitive, so all examples mean the same value.
 Binary | 0 - 1 | uses the number 0 followed by b or B as a prefix | 0b10, 0B10 | case insensitive, so all examples mean the same value.
 
-:bangbang: **Exame Tip:**
+:bangbang: **Exam Tip:**
 > We won’t need to convert between number systems on the exam. You’ll have to *recognize valid literal values that can be assigned to numbers.*
 
 ---
@@ -515,7 +518,7 @@ java.util.Date today = randomDate;
 <a id="c2-primitive-and-reference-types"/></a>
 #### Distinguishing between Primitives and Reference Types
 
-Differences | Reference Type | Primitive Type
+ | Reference Type | Primitive Type
 ------- | ------- | -------
 Can assign to null | Yes | No
 Can be used to call methods | Yes | No
@@ -548,10 +551,11 @@ String s = null;
 
 <a id="c2-identifiers"/></a>
 #### Identifying Identifiers
-* Java has precise rules about identifier names. An *identifier is the name* of a `variable`, `method`, `class`, `interface`, or `package`. Java has precise rules about identifier names, the rules for variables apply to all of the other types that you are free to name. </br> There are only four rules to remember for legal identifiers:
+* Java has precise rules about identifier names. An *identifier is the name* of a `variable`, `method`, `class`, `interface`, or `package`. Java has precise rules about identifier names, the rules for variables apply to all of the other types that you are free to name.
+* There are only four rules to remember for legal identifiers:
 	+ Identifiers **must begin** with a letter, a $ symbol, or a _ symbol.
 	+ Identifiers **can include** numbers but not start with them.
-	+ Since Java 9, a single underscore _ is **not allowed** as an identifier.
+	+ Since Java 9, a *single* underscore _ is **not allowed** as an identifier.
 	+ You **cannot use** the same name as a Java reserved word. A reserved word is special word that Java has held aside so that you are not allowed to use it. </br> **PS:** Java is case sensitive, you can use keywords versions that differ in case.
 
 	We **won’t need to memorize** the full list of reserved words. The exam will only ask you about ones that are commonly used, such as `class` and `for`.</br> (Check the `Table 2.2` on original book to see all reserved words)
@@ -561,7 +565,8 @@ String s = null;
 	long okidentifier;
 	float $OK2Identifier;
 	boolean _alsoOK1d3ntifi3r;
-	char __SStillOkbutKnotsonice$; 
+	char __SStillOkbutKnotsonice$;
+	int var; 
 	
 	//These examples are NOT legal: 
 	int 3DPointClass;    // identifiers cannot begin with a number
@@ -571,24 +576,24 @@ String s = null;
 	short _;             // a single underscore is not allowed
 	```
 	
-:bangbang: **Exame Tip:**
+:bangbang: **Exam Tip:**
 > var is not a reserved word, just a reserved type. It can be used as an identifier except as a class, interface, or enum name.
 	
 ---
 <a id="c2-camel-snake-case"/></a>
 #### Styles: CamelCase and Snake-Case 
-* Camel Case: The first letter of each word is capitalized.
+* *Camel Case*: The first letter of each word is capitalized.
 	+ Method and variable names are written in camelCase with the first letter being lowercase. 
 	+ Class and interface names are written in camelCase with the first letter being uppercase. Also, don’t start any class name with $, as the compiler uses this symbol for some files.
-* Snake Case: Uses an underscore (_) to separate words, often entirely in lowercase.
+* *Snake Case*: Uses an underscore (_) to separate words, often entirely in lowercase.
 	+ Static final values and ENUM values tend to be written with snake_case
 
 ---
 <a id="c2-multiple-variables"/></a>
 #### Declaring Multiple Variables
 * You can also declare and initialize multiple variables in the same statement.
-	+ Declare: When you define the variable (**without assign** a value to it)
-	+ Initialize: When you assign a value to it
+	+ **Declare**: When you define the variable (**without assign** a value to it)
+	+ **Initialize**: When you assign a value to it
 
 ```java
 //Declaring 4 variables AND Initializing 2 variables
@@ -611,11 +616,15 @@ int num, String value; // DOES NOT COMPILE
 * Examples
 
 ```java
-4: boolean b1, b2; // LEGAL
-5: String s1 = "1", s2; //LEGAL
-6: double d1, double d2; //ILEGAL: If you want to declare multiple variables in the same statement, they must share the same type declaration and not repeat it.
-7: int i1; int i2; // LEGAL
-8: int i3; i4; // ILEGAL: Missing i4 type, since we have ";" it's a completely different statement
+//LEGAL
+4: boolean b1, b2;
+5: String s1 = "1", s2;
+6: int i1; int i2;
+
+//ILEGAL
+7: double d1, double d2; //If you want to declare multiple variables in the same statement, they must share the same type declaration and not repeat it.
+
+8: int i3; i4; // Missing i4 type, since we have ";" it's a completely different statement
 ```
 
 ---
@@ -650,8 +659,7 @@ public void testMethod(boolean checkValue){
 	}
 	
 	System.out.println(checkValue); //DOES NOT COMPILE
-
-	// Compile identifies there's a flow that the variable might not be initialized (if the code does not enter the if)
+	// Compiler identifies there's a flow that the variable might not be initialized (if the code does not enter the if)
 }
 ```
 
@@ -664,7 +672,7 @@ public void test() {
 }
 ```
 
-:bangbang: **Exame Tip:**
+:bangbang: **Exam Tip:**
 > Be wary of any local variable that is declared but not initialized in a single line. This is a common place on the exam that could result in a “Does not compile” answer. You are not required to initialize the variable on the same line it is defined, but be sure to check to make sure it’s initialized before it’s used on the exam.
 
 ---
@@ -682,7 +690,7 @@ A variable is a class variable if it has the static keyword in its declaration.
 
 * Instance and class variables *do not require you to initialize them*. As soon as you declare these variables, they *are given a default value*.
 
-:bangbang: **Exame Tip:**
+:bangbang: **Exam Tip:**
 > You’ll need to memorize everything in this table except the default value of char.
 
 Variable Type | Default initialization value
@@ -776,8 +784,7 @@ var n = (String)null; //COMPILES
 ```
 Java creators didn't allow only `null` because it could be any reference type (object).
 
-* Java does **NOT allow var** in: `method parameters` (signature), `constructors` (signature), `instance variables` and `class variables` *because they're NOT LOCAL variables*.
-
+* Java does **NOT allow var** in: `method parameters` (signature), `constructors` (signature), `instance variables` and `class variables`.
 ```java
 public int addition(var a, var b) {  // DOES NOT COMPILE
    return a + b;
@@ -802,15 +809,15 @@ b = null;  // DOES NOT COMPILE
 ---
 <a id="c2-review-var-rules"/></a>
 #### Review of var Rules
-* A var is used as a local variable in a constructor, method, or initializer block. 
-* A var cannot be used in constructor parameters, method parameters, instance variables, or class variables. 
-* A var is always initialized on the same line (or statement) where it is declared. 
-* The value of a var can change, but the type cannot. 
-* A var cannot be initialized with a null value without a type. 
-* A var is not permitted in a multiple-variable declaration. 
-* A var is a reserved type name but not a reserved word, meaning it can be used as an identifier except as a class, interface, or enum name.
+* :ballot_box_with_check: A var is used as a local variable in a constructor, method, or initializer block. 
+* :ballot_box_with_check: A var cannot be used in constructor parameters, method parameters, instance variables, or class variables. 
+* :ballot_box_with_check: A var is always initialized on the same line (or statement) where it is declared. 
+* :ballot_box_with_check: The value of a var can change, but the type cannot. 
+* :ballot_box_with_check: A var cannot be initialized with a null value without a type. 
+* :ballot_box_with_check: A var is not permitted in a multiple-variable declaration. 
+* :ballot_box_with_check: A var is a reserved type name but not a reserved word, meaning it can be used as an identifier except as a class, interface, or enum name.
 
-:bangbang: **Exame Tip:**
+:bangbang: **Exam Tip:**
 > Since var is new to Java since the last exam, expect to see it used frequently on the exam.
 
 ---
@@ -843,7 +850,7 @@ if | 17 | 23 | *bitesOfCheese* only exist on IF scope
 
 Variables declared inside in a scope will exist only in there, but remember *that smaller contained blocks can reference variables defined in the larger scoped blocks* BUT **not vice versa**
 
-:bangbang: **Exame Tip:**
+:bangbang: **Exam Tip:**
 > You’ll want to practice this skill a lot! Identifying blocks and variable scope needs to be second nature for the exam.
 
 ---
@@ -870,9 +877,9 @@ Variables declared inside in a scope will exist only in there, but remember *tha
 ---
 <a id="c2-reviewing-var-scope"/></a>
 #### Reviewing Scope
-* Local variables: In scope from declaration to end of block 
-* Instance variables: In scope from declaration until object eligible for garbage collection 
-* Class variables: In scope from declaration until program ends
+* :ballot_box_with_check: Local variables: In scope from declaration to end of block 
+* :ballot_box_with_check: Instance variables: In scope from declaration until object eligible for garbage collection 
+* :ballot_box_with_check: Class variables: In scope from declaration until program ends
 
 ---
 <a id="c2-destroying-objects"/></a>
@@ -906,23 +913,23 @@ Java includes a built-in method to help support garbage collection that can be c
 #### Tracing Eligibility
 The JVM waits patiently and monitors each object until it determines that the code no longer needs that memory. An object will remain on the heap until it is no longer reachable. It's not reachable when:
 
-* The object no longer has any references pointing to it. 
-* All references to the object have gone out of scope.
+* :ballot_box_with_check: The object no longer has any references pointing to it. 
+* :ballot_box_with_check: All references to the object have gone out of scope.
 
 **PS:** Check the book on `Page 66` for more visual examples.
 
 ---
 <a id="c2-objects-and-references"/></a>
 #### Objects vs. References
-* Object: Sits on the heap and does not have a name. Therefore, you have no way to access an object except through a reference.
-* Reference: reference is a variable that has a name and can be used to access the contents of an object. A reference can be assigned to another reference, passed to a method, or returned from a method.
+* *Object*: Sits on the heap and does not have a name. Therefore, you have no way to access an object except through a reference.
+* *Reference*: reference is a variable that has a name and can be used to access the contents of an object. A reference can be assigned to another reference, passed to a method, or returned from a method.
 
 **PS:** References may or may not be created on the heap, all references are the same size no matter they data type.
 
 ---
 <a id="c2-gc-finalize"/></a>
 #### finalize()
-:bangbang: **Exame Tip:**
+:bangbang: **Exam Tip:**
 > This topic is no longer on the exam.
 
 * Java allows objects to implement a method called finalize(), the garbage collector would call the finalize() method once.
