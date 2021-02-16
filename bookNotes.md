@@ -420,7 +420,7 @@ Keyword | Type | Example
 
 **PS**: **String** *IS NOT* a Primitive :no_entry_sign:
 
-:exclamation: **Exame Tip:**
+:bangbang: **Exame Tip:**
 > You won’t be asked about the exact sizes of most of these types, although you should know that a byte can hold a value from –128 to 127.
 
 * Some notes about this table:
@@ -460,7 +460,8 @@ Octal | 0 - 7 | uses the number 0 as a prefix | 017
 Hexadecimal | 0 - 9 and letter A-F/a-f | uses 0x or 0X as a prefix | 0xFF, 0xff, 0XFf | case insensitive, so all examples mean the same value.
 Binary | 0 - 1 | uses the number 0 followed by b or B as a prefix | 0b10, 0B10 | case insensitive, so all examples mean the same value.
 
-* Exam tip: We won’t need to convert between number systems on the exam. You’ll have to **recognize valid literal values that can be assigned to numbers.**
+:bangbang: **Exame Tip:**
+> We won’t need to convert between number systems on the exam. You’ll have to *recognize valid literal values that can be assigned to numbers.*
 
 ---
 <a id="c2-literals_underscore"/></a>
@@ -570,8 +571,8 @@ String s = null;
 	short _;             // a single underscore is not allowed
 	```
 	
-	**Exame Tip**: 
-	> var is not a reserved word, just a reserved type. It can be used as an identifier except as a class, interface, or enum name.
+:bangbang: **Exame Tip:**
+> var is not a reserved word, just a reserved type. It can be used as an identifier except as a class, interface, or enum name.
 	
 ---
 <a id="c2-camel-snake-case"/></a>
@@ -663,7 +664,7 @@ public void test() {
 }
 ```
 
-**Exame Tip**: 
+:bangbang: **Exame Tip:**
 > Be wary of any local variable that is declared but not initialized in a single line. This is a common place on the exam that could result in a “Does not compile” answer. You are not required to initialize the variable on the same line it is defined, but be sure to check to make sure it’s initialized before it’s used on the exam.
 
 ---
@@ -681,7 +682,7 @@ A variable is a class variable if it has the static keyword in its declaration.
 
 * Instance and class variables *do not require you to initialize them*. As soon as you declare these variables, they *are given a default value*.
 
-**Exame Tip**: 
+:bangbang: **Exame Tip:**
 > You’ll need to memorize everything in this table except the default value of char.
 
 Variable Type | Default initialization value
@@ -809,7 +810,7 @@ b = null;  // DOES NOT COMPILE
 * A var is not permitted in a multiple-variable declaration. 
 * A var is a reserved type name but not a reserved word, meaning it can be used as an identifier except as a class, interface, or enum name.
 
-**Exame Tip**:
+:bangbang: **Exame Tip:**
 > Since var is new to Java since the last exam, expect to see it used frequently on the exam.
 
 ---
@@ -842,7 +843,7 @@ if | 17 | 23 | *bitesOfCheese* only exist on IF scope
 
 Variables declared inside in a scope will exist only in there, but remember *that smaller contained blocks can reference variables defined in the larger scoped blocks* BUT **not vice versa**
 
-**Exame Tip**:
+:bangbang: **Exame Tip:**
 > You’ll want to practice this skill a lot! Identifying blocks and variable scope needs to be second nature for the exam.
 
 ---
@@ -921,6 +922,7 @@ The JVM waits patiently and monitors each object until it determines that the co
 ---
 <a id="c2-gc-finalize"/></a>
 #### finalize()
+:bangbang: **Exame Tip:**
 > This topic is no longer on the exam.
 
 * Java allows objects to implement a method called finalize(), the garbage collector would call the finalize() method once.
