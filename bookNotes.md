@@ -3,7 +3,7 @@
 ### **Chapters**
 
 - <a href="#chapter1">1 - Welcome to Java</a>
-	+ <a href="#c1-comments">Comments</a>
+	+ <a href="#c1-comments">Access modifiers</a>
 	+ <a href="#c1-class-structure">Class structure</a>
 		+ <a href="#c1-ordering-elements">Ordering elements in a class</a>
 	+ <a href="#c1-main">Main method</a>
@@ -57,6 +57,32 @@
 		+  <a href="#c2-tracing-eligibility">Tracing Eligibility</a>
 		+  <a href="#c2-objects-and-references">Objects vs. References</a>
 		+  <a href="#c2-gc-finalize">Calling finalize()</a>
+
+- <a href="#chapter3">3 - Operators
+	+  <a href="#c3-operators">Understanding Java Operators</a>
+		+  <a href="#c3-operator-procedence">Order of operator precedence</a>
+	
+	+  <a href="#c3-applying-op">Applying Unary Operators</a>
+		+  <a href="#c3-increment-decrement">Increment and Decrement Operators</a>
+		
+	+  <a href="#c3-binary-operators">Working with Binary Arithmetic Operators</a>
+		+  <a href="#c3-adding-parentheses">Adding Parentheses</a>
+		+  <a href="#c3-division-module-operators">Division and Modulus Operators</a>
+		+  <a href="#c3-numeric-promotion">Numeric Promotion</a>
+	
+	+  <a href="#c3-assigning-values">Assigning Values</a>
+		+  <a href="#c3-casting-values">Casting Values</a>
+		+  <a href="#c3-reviewing-primitive">Reviewing Primitive Assignments</a>
+		+  <a href="#c3-compound-assignment">Compound Assignment Operators</a>
+		+  <a href="#c3-assignment-operator-return">Assignment Operator Return Value</a>
+		
+	+  <a href="#c3-comparing-values">Comparing Values</a>
+		+  <a href="#c3-equality-operators">Equality Operators</a>
+		+  <a href="#c3-relational-operators">Relational Operators</a>
+		+  <a href="#c3-instanceof-operator">instaceof Operator</a>
+		+  <a href="#c3-logical-operator">Logical Operators</a>
+		+  <a href="#c3-short-circuit-operators">Short-Circuit Operators</a>
+		+  <a href="#c3-ternary-operators">Ternary Operator</a>
 
 ## Intro
 
@@ -190,7 +216,7 @@ Can import code in any available Java library | Can only import code that came w
 
 Option | Description | 
 --- | --- 
-| -cp "classpath" <br/>  -classpath "classpath" <br/> --class-path "classpath" | Location of classes needed to compile the program
+| -cp "classpath" <br/>  -classpath "classpath" <br/> --class-path "classpath" | Location of classes needed to compile the program (**folders where your classes are located**)
 | -d "dir" | Directory to place generated class files
 
 
@@ -934,5 +960,481 @@ The JVM waits patiently and monitors each object until it determines that the co
 
 * Java allows objects to implement a method called finalize(), the garbage collector would call the finalize() method once.
 * Just remember that finalize() can run zero or one times. It cannot run twice.
+
+
+---
+
+<a id="chapter3"/></a>
+## _Chapter 3:  Operators_ 
+<a id="c3-operators"/></a>
+### Understanding Java Operators: 
+In java we have 3 types of operators: `unary, binary, and ternary`, we'll see how to apply them, and the order in which they should be applied.
+
+* Java operators are not necessarily evaluated from left-to-right order.
+
+```java
+int cookies = 4;
+
+//Evaluated from right to left given the specific operators involved
+double reward = 3 + 2 * --cookies; 
+System.out.print("Result: " + reward); //Output: 9.0
+```
+
+---
+<a id="c3-operator-procedence"/></a>
+#### Order of operator precedence
+
+Operator | Symbols and examples
+------- | -------
+Post-unary operators | `expression++, expression--`
+Pre-unary operators | `++expression, --expression`
+Other unary operators | `-, !, ~, +, (type)`
+Multiplication/division/modulus | `*, /, %`
+Addition/subtraction | `+, -`
+Shift operators | `<, >, <=, =>, instaceof`
+Equal to/not equal to | `==, !=`
+Logical operators | `&, ^, PIPE`
+Short-circuit logical operators | `&&, PIPE PIPE`
+Ternary operators | `boolean expression ? expression1:expression2`
+Assignment operators | `=, +=, -=, *=, /=, %=, &=, ^=, PIPE=, <<=, >>=, >>>=`
+
+**PS: PIPE means `|`,** MD format did not let me put in this way above because it's inside a table that uses `|` as column separator
+
+:bangbang: **Exam Tip:**
+> You won’t be tested on some operators, like the shift operators.
+
+---
+<a id="c3-applying-op"/></a>
+### Applying Unary Operators
+Requires exactly one operand, or variable, to function. They often perform simple tasks, such as increasing a numeric variable by one or negating a boolean value.
+
+Operator | Description
+------- | -------
+! | Inverts a boolean’s logical value
++ | Indicates a number is positive, although numbers are assumed to be positive in Java unless accompanied by a negative unary operator
+- | Indicates a literal number is negative or negates an expression
+++ | Increments a value by 1
+-- | Decrements a value by 1
+(type) | Casts a value to a specific type.
+
+* The `!` operator flips the value of a boolean expression.
+
+```java
+boolean isAnimalAsleep = false;
+System.out.println(isAnimalAsleep);  // false
+System.out.println(!isAnimalAsleep); // true
+```
+
+* The negation operator `-` reverses the sign of a numeric expression
+
+```java
+double temp = 1.21;
+temp = -temp;    // -1.21
+temp = -(-temp); // -1.21 (Turned into positive and then negative)
+```
+
+**PS**: You cannot apply a negation operator (-) to a boolean expression, nor can you apply a logical complement operator (!) to a numeric expression.
+
+```java
+int pelican = !5;         // DOES NOT COMPILE
+boolean penguin = -true;  // DOES NOT COMPILE
+boolean peacock = !0;     // DOES NOT COMPILE
+```
+
+---
+<a id="c3-increment-decrement"/></a>
+#### Increment and Decrement Operators
+* Pre-increment `++x` / pre-decrement `--x`: we **applied first** and the value returned is the new value of the expression.
+* Post-increment operator `x++` / Post-decrement `x--`: the original value of the expression is returned, with operator **applied after** the value is returned.
+
+```java
+int value = 0;
+System.out.println(++value);  // 1
+System.out.println(value--);  // 1
+System.out.println(value);    // 0
+```
+
+* We can apply multiple increment or decrement operators to a single variable on the same line. Keep in mind the <a href="#c3-operator-procedence">Order of operator precedence</a>
+
+```java
+int a = 3;
+int b = ++a * 5 / a--;
+System.out.println(a); //Output: 3
+System.out.println(b); //Output: 5
+
+//Processing order:
+int b = ++a * 5 / 3; // a assigned value of 2
+int b = 3 * 5 / 3;   // a assigned value of 3
+```
+
+---
+<a id="c3-binary-operators"/></a>
+### Working with Binary Arithmetic Operators
+
+Operator | Description
+------- | -------
++ | Adds two numerics values
+- | Subtracts two numeric values
+* | Multiplies two numeric values
+/ | Divides one numeric value by another
+% | Modulus operators returns the remainder after division of one numeric value by another
+
+*Reminder*: The operators `*, /, %` have a higher order of precedence than the `+, -` ones.
+
+---
+<a id="c3-adding-parentheses"/></a>
+#### Adding Parentheses
+We can override the order of operator precedence using parentheses, by wrapping parentheses around the sections you want evaluated first.
+
+
+```java
+int mine = 2 * (32 - 8); //The code inside parentheses will be evaluated first
+int mine = 2 * 24;
+
+//PS: The parentheses should be balanced, it would NOT WORK:
+int mine = 2 * (32 - 8;
+int mine = 2 * (32 - 8));
+```
+
+---
+<a id="c3-division-module-operators"/></a>
+#### Division and Modulus Operators
+* Modulus Operator `%`: Modulus operators returns the remainder after division of one numeric value by another
+
+```java
+System.out.println(9 / 3);   // 3
+System.out.println(9 % 3);   // 0
+
+System.out.println(10 / 3);  // 3
+System.out.println(10 % 3);  // 1
+```
+
+:bangbang: **Exam Tip:**
+> For the exam, you are not required to be able to take the modulus of a negative integer or a floating-point number.
+
+ ---
+ <a id="c3-numeric-promotion"/></a>
+#### Numeric Promotion
+*Numeric Promotion Rules*
+
+- If two values have different data types, Java will automatically promote one of the values to the larger of the two data types.
+
+- If one of the values is integral and the other is floating-point, Java will automatically promote the integral value to the floating-point value’s data type.
+- Smaller data types, `byte, short, and char`, are first promoted to int any time they’re used with a Java binary arithmetic operator, even if neither of the operands is int. `Unary operators are excluded from this rule`. applying ++ to a short value results in a short value.
+- After all promotion has occurred and the operands have the same data type, the resulting value will have the same data type as its promoted operands.
+
+---
+##### Complete example with all the rules being applied
+```java
+short w = 14;
+float x = 13;
+double y = 30;
+var z = w * x / y;
+```
+
+**Processing order:**
+- `w` will automatically be promoted to int solely because it is a short and it is being used in an arithmetic binary operation.
+- The promoted `w` value will then be automatically promoted to a float so that it can be multiplied with x.
+- The result of `w * x` will then be automatically promoted to a double so that it can be divided by y, resulting in a double value.
+
+---
+
+<a id="c3-assigning-values"/></a>
+### Assigning Values
+An assignment operator is a binary operator that modifies, or assigns, the variable on the left side of the operator, with the result of the value on the right side of the equation. `int a = 1;`
+
+---
+<a id="c3-casting-values"/></a>
+#### Casting Values
+* Casting is optional and unnecessary when converting to a larger or widening data type
+* It is required when converting to a smaller or narrowing data type. Without casting, the compiler will generate an error when trying to put a larger data type inside a smaller one.
+
+
+```java
+//Cast is always on the left side
+String type = (String)  "Bird"; 
+long feathers = 10(long);  // DOES NOT COMPILE
+
+//You should use parentheses if you want to apply to a expression result
+short tail = (short)(4 + 10); 
+```
+
+---
+<a id="c3-reviewing-primitive"/></a>
+#### Reviewing Primitive Assignments
+Similar examples we saw on Chapter 2
+
+```java
+int fish = 1.0;        // DOES NOT COMPILE -> Trying to assign a double 1.0 to an integer
+short bird = 1921222;  // DOES NOT COMPILE -> Literal value is outside the range of short
+int mammal = 9f;       // DOES NOT COMPILE -> "f" added to the end of the number that instructs the compiler to treat the number as a floating-point value
+long reptile = 192301398193810323;  // DOES NOT COMPILE -> Java interprets the literal as an int and notices that the value is larger than int allows.
+```
+
+Now applying casting to this examples so they work
+
+```java
+int trainer = (int)1.0;
+short ticketTaker = (short)1921222;  // Stored as 20678
+int usher = (int)9f;
+long manager = 192301398193810323L;
+```
+
+**By casting a larger value into a smaller data type, you are instructing the compiler to ignore its default behavior.**
+
+* Another compile error and casting example
+
+```java
+short mouse = 10;
+short hamster = 3;
+short capybara = mouse * hamster;  // DOES NOT COMPILE
+```
+
+Trying to assign a short variable with an int value results in a compiler error, as Java thinks you are trying to implicitly convert from a larger data type to a smaller one. We can fix it by:
+
+
+```java
+short capybara = (short)(mouse * hamster);
+```
+
+**Review**: What's the difference and why one piece compiles and the other one not
+
+```java
+short mouse = 10;
+short hamster = 3;
+short capybara = mouse * hamster;  // DOES NOT COMPILE
+
+short capybara2 = (short) 10 + (short) 3;  // COMPILES
+```
+
+---
+<a id="c3-compound-assignment"/></a>
+#### Compound Assignment Operators
+
+Operator | Description | Ex
+------- | ------- | -------
++= | Adds the value on the right to the variable on the left and assigns the sum to the variable | `a = a + b` </br> `a += b`
+-= | Subtracts ... ^ ^ | `a = a - b` </br> `a -= b`
+*= | Multiplies ... ^ ^ | `a = a * b` </br> `a *= b`
+/= | Divides the variable on the left by the value on the right and assigns the quotient to the variable | `a = a / b` </br> `a /= b`
+
+**Notes about Compound Assignment Operators**
+
+* The left side of the compound operator can be applied only to a variable that is already defined and cannot be used to declare a new variable.
+
+```java
+//DOES NOT COMPILE
+int b = 2;
+a = a + b;
+
+//COMPILES
+int a = 3, b = 2;
+a = a + b;
+```
+
+* They can also save us from having to explicitly cast a value.
+
+```java
+//Not using the Compound
+long goat = 10;
+int sheep = 5;
+sheep = sheep * goat;   // DOES NOT COMPILE 
+//We are trying to assign a long value to an int variable
+
+
+//Using the Compound
+long goat = 10;
+int sheep = 5;
+sheep *= goat; // COMPILES
+//The compound operator will first cast sheep to a long, apply the multiplication of two long values, and then cast the result to an int.
+```
+
+---
+<a id="c3-assignment-operator-return"/></a>
+#### Assignment Operator Return Value
+The result of an assignment is an expression in and of itself, equal to the value of the assignment.
+
+```java
+long a = 5;
+long b = (a=3);
+System.out.println(a); // 3
+System.out.println(b); // 3
+
+//Processing order
+// Sets a value = 3
+// Returns a value of the assignment, which is also 3.
+```
+
+Another tricky one
+
+```java
+boolean checked = false;
+if(checked = true)
+   System.out.print("Message!");
+
+//It prints the Message, because we're assigning the value and only after this, comparing, which is "true".
+```
+
+---
+<a id="c3-comparing-values"/></a>
+### Comparing Values
+They can be used to check if two values are the same, check if one numeric value is less than or greater than another, and perform boolean arithmetic.
+
+---
+<a id="c3-equality-operators"/></a>
+#### Equality Operators
+The equals operator `(==)` and not equals operator `(!=)` compare two operands and return a boolean value determining whether the expressions or values are equal or not equal, respectively.
+
+
+Operators | Apply to primitive | Apply to objects
+------- | ------- | -------
+== | Returns true if the two values represent the same value | Returns true if the two values reference the same object
+!= | Returns true if the two values represent different values | Returns true if the two values do not reference the same object
+
+You can use them to:
+
+* Comparing two numeric or character primitive types. </br>If the numeric values are of different data types, the values are automatically promoted. For example, `5 == 5.00` returns true since the left side is promoted to a double.
+* Comparing two boolean values
+* Comparing two objects, including null and String values
+
+**PS**: You **CAN'T** mix and match types.
+
+```java
+// DOES NOT COMPILE (ALL)
+
+boolean monkey = true == 3;
+boolean ape = false != "Grape";
+boolean gorilla = 10.2 == "Koko";
+```
+
+**PS:** When comparing objects, the equality operators check if they both point to the same memory reference, its not related to object values itself, <a href="#c2-reference-types">we saw that on Chapter 2</a>
+
+---
+<a id="c3-relational-operators"/></a>
+#### Relational Operators
+
+Operator | Description
+------- | -------
+< | Returns true if the value on the left is **strictly less** than the value on the right
+<= | Returns true if the value on the left is less than **or equal** to the value on the right
+> | Returns true if the value on the left is **strictly greater** than the value on the right
+>= | Returns true if the value on the left is greater than **or equal** to the value on the right
+a instanceof b | Returns true if the reference that a points to is an instance of a class, subclass, or class that implements a particular interface, as named in b
+
+The first four relational operators, apply only to numeric values. If the two numeric operands are not of the same data type, the smaller one is promoted as previously discussed.
+
+---
+<a id="c3-instanceof-operator"/></a>
+#### instaceof Operator
+It is useful for determining whether an arbitrary object is a member of a particular class or interface at runtime.
+
+**PS**: With polymorphism, using the `instaceof` will return true if the class is a subclass of that type
+
+```java
+Integer ex = Integer.valueOf(9);
+
+System.out.print(ex instanceof Integer); //true
+System.out.print(ex instanceof Number);  //true
+System.out.print(ex instanceof Object);  //true
+```
+
+---
+##### Invalid instaceof
+The exam might try to trip you up on is using instanceof with incompatible types. </br>For example, Number cannot possibly hold a String value
+
+```java
+Integer ex = Integer.valueOf(9);
+System.out.print(ex instanceof String);  // DOES NOT COMPILE
+```
+
+---
+##### null and the instanceof operator
+Calling instanceof on the null literal or a null reference (left side) **always returns false**.
+
+```java
+System.out.print(null instanceof Object); //false
+
+Object noObjectHere = null;
+System.out.print(noObjectHere instanceof String); //false
+
+//You CAN'T use "null" on the right side of instaceof
+System.out.print(null instanceof null);  // DOES NOT COMPILE
+```
+
+---
+<a id="c3-logical-operator"/></a>
+#### Logical Operators
+The logical operators, `(&), (|), and (^)`, may be applied to both numeric and boolean data types. When they’re applied to boolean data types, they’re referred to as logical operators.
+
+:bangbang: **Exam Tip:**
+> For the exam, though, you don’t need to know anything about numeric bitwise comparisons (logical operators applied to numeric data type)
+
+
+Operator | Description
+------- | -------
+& | Logical AND is true only if both values are true.
+`|` | Logical AND is true only if both values are true.
+^ | Exclusive XOR is true only if one value is true and the other is false.
+
+---
+<a id="c3-short-circuit-operators"/></a>
+#### Short-Circuit Operators
+
+Operator | Description
+------- | -------
+&& | Is true only if both values are true.</br> If the left side is false, then the right side **will not be evaluated.**
+`||` | Is true if at least one of the values is true.</br>. If the left side is true, then the right side **will not be evaluated.**
+
+* Logical Operator `& |`: evaluates **both sides** of the expression.
+* Short-Circuit Operator `&& ||`: the *right side of the expression may never be evaluated* **if the final result** can be determined **by the left side** of the expression.
+
+---
+##### Avoiding NPE:
+```java
+if(duck!=null & duck.getAge()<5) { //Can throw a NullPointerException
+
+if(duck!=null && duck.getAge()<5) { //Can't throw a NullPointerException
+```
+
+---
+##### Checking for Unperformed Side Effects
+Since the right side of the expression may never be reached, we must pay attention in tricky questions like this
+
+```java
+int rabbit = 6;
+boolean bunny = (rabbit >= 6) || (++rabbit <= 7);
+System.out.println(rabbit); //Output: 6
+```
+
+---
+<a id="c3-ternary-operators"/></a>
+#### Ternary Operator
+The ternary operation is really a condensed form of a combined if and else statement that returns a value.
+
+```java
+int owl = 5;
+int food = owl < 2 ? 3 : 4;
+System.out.println(food); // 4
+```
+
+* There is no requirement that second and third expressions in ternary operations have the same data types, **BUT IF** you're assigning a value to a variable things can change
+
+```java
+int test = 7;
+ 
+System.out.print((test > 5) ? 21 : "Zebra");
+ 
+int animal = (test < 9) ? 3 : "Horse";  // DOES NOT COMPILE
+//The "else" result tries to put the a String inside an Int
+```
+
+**PS:**: If the ternary doesn't reach a specific condition, the code inside that block will not be executed
+
+```java
+int a = 1, b = 1;
+int sleep = a<10 ? a++ : b++;
+System.out.print(a + "," + b);  // 2,1 
+//b was not incremented because the code was not reached
+```
 
 
