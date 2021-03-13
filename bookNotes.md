@@ -2039,5 +2039,8 @@ do while | Yes | Yes | Yes
 for | Yes | Yes | Yes
 switch | Yes | Yes | No
 
-**PS:** You can use `return` in all of the.</br> Just keep in mind you're covering all the possible "return cases" in your code, otherwise you will face a `Missing return statement` (we'll talk more about it latter)
+**PS:** You can use `return` in all of them</br> Just keep in mind you're covering all the possible "return cases" in your code, otherwise you will face a `Missing return statement` (we'll talk more about it latter)
+
+**PS II**: `if` statement only supports `return` and `labels`, but **NOT** `break` and `continue`
+
 
