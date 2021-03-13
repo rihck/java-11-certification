@@ -548,7 +548,7 @@ java.util.Date today = randomDate;
 <a id="c2-primitive-and-reference-types"/></a>
 #### Distinguishing between Primitives and Reference Types
 
-- | Reference Type | Primitive Type
+? | Reference Type | Primitive Type
 ------- | ------- | -------
 Can assign to null | Yes | No
 Can be used to call methods | Yes | No
