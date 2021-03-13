@@ -84,6 +84,10 @@
 		+  <a href="#c3-short-circuit-operators">Short-Circuit Operators</a>
 		+  <a href="#c3-ternary-operators">Ternary Operator</a>
 
+
+- <a href="#chapter4">4 - Making Decisions
+	+  <a href="#c4-creation-decision">Creating Decision-Making Statements</a>
+
 ## Intro
 
 We'll be using [this Book](https://www.amazon.com/gp/product/B08DF4R2V9/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1) to study to the certification.
@@ -1435,6 +1439,377 @@ int a = 1, b = 1;
 int sleep = a<10 ? a++ : b++;
 System.out.print(a + "," + b);  // 2,1 
 //b was not incremented because the code was not reached
+```
+
+---
+---
+<a id="chapter4"/></a>
+## _Chapter 4:  Making Decisions_ 
+<a id="c4-creation-decision"/></a>
+
+### Creating Decision-Making Statements: 
+#### The if Statement
+It allows our application to execute a particular block of code if and only if a boolean expression evaluates to true at runtime.
+
+```java
+if(booleanExpression){
+	//code to be executed if true
+}
+```
+
+<a id="c4-if-rules"/></a>
+**IF Rules:**
+
+* Parentheses required
+* Curly braces required for block of multiple statements, optional for single statement. If you **NOT PUT braces**, java will execute **only the next line**, it doesn't matter if the rest of the code is indented
+* Expression must be boolean expressions
+
+```java
+int hourOfDay = 1;
+if(hourOfDay) {  // DOES NOT COMPILE
+```
+
+* Assignments operators are valid if they return a boolean expression
+
+```java
+int hourOfDay = 1;
+if(hourOfDay = 5) {  // DOES NOT COMPILE
+
+boolean valid = false;
+if(valid = true) { // COMPILES (but doesn't make sense)
+```
+
+---
+#### The else Statement
+We can use `else` to execute a specific piece of code if none of the `if` conditions were satisfied
+
+```java
+if(dayTime < 15) {
+   System.out.println("Good Morning");
+} else if(dayTime < 11) { // COMPILES BUT IS UNREACHABLE
+   System.out.println("Good Afternoon");
+} else {
+   System.out.println("Good Evening");
+}
+
+// Second if is not reachable because the first condition covers this by having a larger number
+```
+
+PS: The <a href="#c4-if-rules">IF Rules</a> are the same for `else` statement 
+
+---
+#### The switch Statement
+A switch statement is a complex decision-making structure in which a single value is evaluated and flow is redirected to the first matching branch, known as a case statement.
+
+```java
+int month = 5;
+switch (month) {
+   case 1: System.out.print("Jan"); break;
+   case 2: System.out.print("Feb");
+   default: System.out.print("None");
+}
+```
+
+**Switch Rules:**
+
+* **Required:** Parentheses
+* **Required:**  Curly braces (beginning and ending) 
+* **Required:**  Follow the `case X:` syntax, the `case / default` keyword and ":" are mandatory
+* Optional: `break`
+* Optional: `default` case. There's specific place required for it
+* Optional: Spaces / Lines breaks inside the switch structure: `switch, case, default, :`
+* **Possible** values to be evaluated: `int, byte, short, chat, String, ENUM, var (if the type resolves to one of the preceding types)` and the related Wrappers from these primitives `Integer, Byte, Short, Character`
+* **Not possible** values: All the other ones that were not mentioned above: `boolean, long, float, double` and their related Wrappers
+* You **CAN'T**: Use `&&` and `||` on switch `cases`
+
+**PS:** You can use `&` and `|` (single ones) in switch but it's related to bitwise arithmetic but it **WILL NOT** be covered **on the exam**. Just remember that it compiles
+
+---
+##### Break statement
+We use break when we want to terminate the switch statement and return flow control to the enclosing statement.
+
+So if you **don't put** the break statement in a specific `case` condition, flow will continue to the **next proceeding cases or default** block **automatically**.
+
+* Example Without break
+
+```java
+var value = 0;
+switch(value) {
+   case 0:
+      System.out.println("0");
+   default:
+      System.out.println("1");
+   case 2:
+      System.out.println("2");
+      
+//Output: 0, 1, 2
+// It matches the first case but it keeps "sliding" but it continues to slide through the cases below (including default) because it does not find a "break" in any of them
+```
+
+* Example With break
+
+```java
+var value = 0;
+switch(value) {
+   case 0:
+      System.out.println("0");
+      break;
+   default:
+      System.out.println("1");
+   case 2:
+      System.out.println("2");
+      
+//Output: 0
+// It matches the first case and stop it there because of "break"
+```
+
+##### Default statement
+The default is executed only in 2 cases
+
+* None of the case conditions were met
+* A `case` "above" the `default` was executed and does not have a "break" inside. (Code example above)
+
+**PS:** The `default` doesn't NOT require a specific declaration order
+
+---
+##### Acceptable Case Values
+* The values in each case statement must be **compile-time constant** values of the **same data type** as the switch value.
+* This means you can use only `literals`, `enum constants`, or `final constant` variables of the same data type.
+
+```java
+final int getCookies() { return 4; }
+void feedAnimals() {
+   final int bananas = 1;
+   int apples = 2;
+   int numberOfAnimals = 3;
+   final int cookies = getCookies();
+   switch (numberOfAnimals) {
+      case bananas:
+      case apples:  // DOES NOT COMPILES
+      case getCookies():  // DOES NOT COMPILE
+		 case cookies :  // DOES NOT COMPILE
+      case 3 * 5 :
+   }
+}
+```
+
+**PS:**
+
+* Even if you're passing a parameter with `final` in a method, you can't use it on the `case` statement, it is not constant as it is passed to the function
+
+---
+##### Numeric Promotion and Casting
+Switch statements support numeric promotion that does not require an explicit cast.
+
+```java
+short size = 4;
+final int small = 15;
+final int big = 1_000_000;
+switch(size) {
+   case small:
+   case 1+2 :
+   case big:  // DOES NOT COMPILE
+}
+```
+
+* As we discussed in <a href="#c3-numeric-promotion">numeric promotion</a>, the compiler can easily cast `small` from `int` to `short` at compile-time because the value 15 is small enough to fit inside a short. The same for the `1+2` expression </br>But in the last case, the `big` is **too large** to fit inside of short **without an explicit cast**.
+
+---
+### Writing while Loops
+A loop is a repetitive control structure that can execute a statement of code multiple times in succession.
+
+---
+#### While statement
+```java
+while (booleanExpression){
+}
+```
+
+**While Rules:**
+
+* **Required:** Parentheses
+* Curly braces required for block of multiple statements, optional for single statement. If you **NOT PUT braces**, java will execute **only the next line**, it doesn't matter if the rest of the code is indented
+* You can use `&&`, `||`, `&`, `|` operators on the expression
+
+---
+#### The do/while Statement
+A `do/while` loop guarantees that the statement or block will be executed at least once. Whereas a while loop is executed zero or more times, a do/while loop is executed one or more times.
+
+
+```java
+do {
+
+} while (booleanExpression); //semicolon required
+```
+
+**PS:** The <a href="#c4-if-rules">While Rules</a> are the same for `do/while` statement
+
+---
+##### Infinite loops
+Make sure the loop condition, or the variables the condition is dependent on, are changing between executions, otherwise you could run out of memory.
+
+---
+### Constructing for Loops
+Another kind of loop, when you want to iterate over a statement a specific number of times may be the best option
+
+#### The for Loop
+
+```java
+for (initialization; booleanExpression; updateStatement) {
+	//Body
+}
+```
+
+**For Rules:**
+
+* **Required:** Parentheses
+* **Required:** Semicolons
+* Curly braces required for block of multiple statements, optional for single statement. If you **NOT PUT braces**, java will execute **only the next line**, it doesn't matter if the rest of the code is indented
+* Variables initialized in the `for` statement are not visible to outside (just remember about <a href="#c2-managing-var-scope">Variable scopes</a>) 
+* You can use `&&`, `||`, `&`, `|` operators on the `booleanExpression`
+
+> The items `initialization`, `booleanExpression` and `updateStatement` are **not required**, it will not cause a compilation error if you omit them (may not make sense or cause an infinite loop but it is something to keep in mind during the exam)
+
+**Execution Order**
+
+*  1 - `initialization` statement executes
+*  2 - If `booleanExpression` was **is true** continue; else exit loop
+*  3 - `Body` executes
+*  4 - Execute `updateStatement`
+*  5 - Return to Step 2
+
+---
+##### Printing Elements in Reverse
+We can use `--` instead of `++` on the `updateStatement` and do a "reverse loop", this is completely normal
+
+```java
+for(int i = 0; i < 5; i++) {
+   System.out.print(i + " "); //0 1 2 3 4
+}
+
+for (var i = 4; i >= 0; i--) {
+   System.out.print(i + " "); //4 3 2 1 0
+}
+```
+
+---
+#### Scenarios while using for loop
+There are some scenarios that are not normal in real life but we must be aware during the exam
+
+##### Creating an Infinite Loop
+
+```java
+for( ; ; ) //COMPILES but It's infinite
+   System.out.println("Hello World");
+```
+
+##### Adding Multiple Terms to the for Statement
+
+```java
+int x = 0;
+for(long y = 0, z = 4; x < 5 && y < 10; x++, y++) { //COMPILES
+	System.out.print(y + " ");
+}
+System.out.print(x + " ");
+// Output: 0 1 2 3 4 5
+```
+
+* Declaring a variable `x` before the loop and using it
+* Including extra variables in the 3 sections (init; expression; update) that *may or may not* reference each other
+* Modifying multiple variables in the update section
+
+##### Redeclaring a Variable in the Initialization Block
+
+```java
+//Redeclaring a existing variable
+int x = 0;
+for(int x = 4; x < 5; x++) {   // DOES NOT COMPILE
+   System.out.print(x + " ");
+}
+
+//Reusing a existing variable WITHOUT redeclaring
+int x = 0;
+for(x = 0; x < 5; x++) { // COMPILES
+   System.out.print(x + " ");
+}
+```
+
+##### Using Incompatible Data Types in the Initialization Block
+The variables in the initialization block **must** all be of the **same type**.
+
+```java
+int x = 0;
+for(long y = 0, int z = 4; x < 5; x++) {  // DOES NOT COMPILE
+```
+
+**PS**: When declaring multiple variables on the init block that have the same type, you **can't** repeat the type keyword
+
+```java
+for(int y = 0, int z = 4; x < 5; x++) {  // DOES NOT COMPILE
+
+for(int y = 0, z = 4; x < 5; x++) {  // COMPILES
+``` 
+
+##### Using Loop Variables Outside the Loop
+
+```java
+for(long y = 0, x = 4; x < 5 && y < 10; x++, y++) {
+   System.out.print(y + " ");
+}
+System.out.print(x);  // DOES NOT COMPILE
+//Variable scope rules applies to "for" statement as well
+```
+
+##### Modifying Loop Variables
+You **CAN** modify the loop variables inside the `for` scope, **BUT** you can mess things up like creating infinite loops
+
+```java
+for(int i=0; i<10; i++)
+   i = 0; //COMPILES but it's infinite
+ 
+for(int j=1; j<10; j++)
+   j--; //COMPILES but it's infinite
+   
+for(int k=0; k<10; ) //COMPILES and NOT infinite (good example)
+   k++;
+
+```
+
+---
+#### The for-each Loop
+The for-each loop is a specialized structure designed to iterate over arrays and various Collection Framework classes
+
+
+```java
+for (dataType instance : Colletion){
+	//Body
+}
+```
+
+**For-each Rules:**
+
+* **Required:** Parentheses
+* **Required:** Colon
+* **Required:** The right side **must** be an array or collection of items, such as a List or a Set (Any class that **implements Collection** interface)
+
+Concrete example:
+
+```java
+public void showNames(String[] names) {
+   for(String name : names)
+      System.out.println(name);
+}
+```
+
+---
+##### More notes about for-each
+
+* Like the regular for loop, the for-each loop also accepts var for the loop variable
+* When you see a for-each loop on the exam, **make sur**e the right side is an **array or Iterable object** and the left side has **a matching type**.
+
+```java
+String[] names = new String[3];
+for(int name : names) {  // DOES NOT COMPILE
 ```
 
 
