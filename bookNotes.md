@@ -548,7 +548,7 @@ java.util.Date today = randomDate;
 <a id="c2-primitive-and-reference-types"/></a>
 #### Distinguishing between Primitives and Reference Types
 
- | Reference Type | Primitive Type
+- | Reference Type | Primitive Type
 ------- | ------- | -------
 Can assign to null | Yes | No
 Can be used to call methods | Yes | No
@@ -1811,5 +1811,97 @@ public void showNames(String[] names) {
 String[] names = new String[3];
 for(int name : names) {  // DOES NOT COMPILE
 ```
+
+---
+
+### Controlling Flow with Branching
+
+#### Nested Loops
+A nested loop is a loop that contains another loop including while, do/while, for, and for-each loops. You can create infinite "loop inside loop" structure mixing everything we've seen so far `for, foreach, while, do-while`
+
+* Looping a two-dimensional array
+
+```java
+int[][] myComplexArray = {{5,2,1,3},{3,9,8,9},{5,7,12,7}};
+ 
+for(int[] mySimpleArray : myComplexArray) {
+   for(int i=0; i<mySimpleArray.length; i++) {
+      System.out.print(mySimpleArray[i]+"\t");
+   }
+   System.out.println();
+}
+
+/*Output: 
+5       2       1       3
+3       9       8       9
+5       7       12      7
+*/
+```
+
+* Mixing while/do-while
+
+```java
+int hungryHippopotamus = 8;
+while(hungryHippopotamus>0) {
+   do {
+      hungryHippopotamus -= 2;
+   } while (hungryHippopotamus>5);
+   hungryHippopotamus--;
+   System.out.print(hungryHippopotamus+", ");
+}
+//Output: 3, 0,
+//To follow this conclusion, remember do-while always execute once, even if the condition is not true
+```
+
+> When working with inner-loops, pay attention to the order of execution, the innermost loop "holds" the outermost one. Review the examples above to understand
+
+---
+#### Adding Optional Labels
+A label is an optional pointer to the head of a statement that allows the application flow to jump to it or break from it.</br> It is a *single identifier* that is proceeded by a colon (`:`).
+
+##### Statements that can have optional labels
+
+* `if / else`, `switch`, `loops` (in general), `block-statements` (`{ }`)
+
+```java
+//COMPILES
+OUTER_LOOP:  for(int[] mySimpleArray : myComplexArray) {
+   INNER_LOOP:  for(int i=0; i<mySimpleArray.length; i++) {
+	IF_LABEL: if(frog>10)
+					CODE_BLOCK_LABEL: {
+					   ANOTHER_LABEL: frog++;
+					}
+```
+ 
+```java
+//DOES NOT COMPILE
+     VAR_LABEL: int frog = 15; //COMPILATION ERROR: Not a statement
+     if(frog>10)
+         {
+             frog++;
+ANOTHER: } //COMPILATION ERROR: Label without a statement
+
+```
+
+> Label are useful for `loop` statements, because you can reference an **external loop** inside an **internal loop** for example, and ask to stop it (`break;`)
+
+---
+#### The break Statement
+A break statement transfers the flow of control out to the enclosing statement. When used with `loops` it will end the loop early.
+
+```java
+optionalLabel: while(booleanExpression){
+	// Body
+	
+	//Somewhere in loop
+	break optionalLabel;
+}
+```
+
+**Break / Label Rules:**
+
+* **Required:** Parentheses
+* **Required:** Colon
+* **Required:** The right side **must** be an array or collection of items, such as a List or a Set (Any class that **implements Collection** interface)
 
 
