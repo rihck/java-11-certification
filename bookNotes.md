@@ -87,6 +87,27 @@
 
 - <a href="#chapter4">4 - Making Decisions
 	+  <a href="#c4-creation-decision">Creating Decision-Making Statements</a>
+		+ <a href="#c4-if-statement">The if Statement</a>  
+		+ <a href="#c4-else-statement">The else Statement</a>
+		+ <a href="#c4-switch-statement">The switch Statement</a>
+	
+	+ <a href="#c4-writing-while-loops">Writing while Loops</a>
+		+ <a href="#c4-while-statement">While statement</a>
+		+ <a href="#c4-do-while-statement">The do/while Statement</a>
+		
+	+ <a href="#c4-cont-for-loops">Constructing for Loops</a>
+		+ <a href="#c4-for-loops">The for Loop</a>
+		+ <a href="#c4-scenarios-using-loops">Scenarios while using for loop</a>
+		+ <a href="#c4-for-each-loop">The for-each Loop</a>
+		
+	+ <a href="#c4-flow-with-branching">Controlling Flow with Branching</a>
+		+ <a href="#c4-nested-loops">Nested Loops</a>
+		+ <a href="#c4-optional-labels">Adding Optional Labels</a>
+		+ <a href="#c4-break-statement">The break Statement</a>
+		+ <a href="#c4-continue-statement">The continue Statement</a>
+		+ <a href="#c4-return-statement">The return Statement</a>
+		+ <a href="#c4-unreachable-code">Unreachable Code</a>
+		+ <a href="#c4-reviewing-branching">Reviewing Branching</a>
 
 ## Intro
 
@@ -1445,9 +1466,11 @@ System.out.print(a + "," + b);  // 2,1
 ---
 <a id="chapter4"/></a>
 ## _Chapter 4:  Making Decisions_ 
-<a id="c4-creation-decision"/></a>
 
-### Creating Decision-Making Statements: 
+<a id="c4-creation-decision"/></a>
+### Creating Decision-Making Statements
+
+<a id="c4-if-statement"/></a>
 #### The if Statement
 It allows our application to execute a particular block of code if and only if a boolean expression evaluates to true at runtime.
 
@@ -1480,6 +1503,7 @@ if(valid = true) { // COMPILES (but doesn't make sense)
 ```
 
 ---
+<a id="c4-else-statement"/></a>
 #### The else Statement
 We can use `else` to execute a specific piece of code if none of the `if` conditions were satisfied
 
@@ -1498,6 +1522,7 @@ if(dayTime < 15) {
 PS: The <a href="#c4-if-rules">IF Rules</a> are the same for `else` statement 
 
 ---
+<a id="c4-switch-statement"/></a>
 #### The switch Statement
 A switch statement is a complex decision-making structure in which a single value is evaluated and flow is redirected to the first matching branch, known as a case statement.
 
@@ -1615,10 +1640,12 @@ switch(size) {
 * As we discussed in <a href="#c3-numeric-promotion">numeric promotion</a>, the compiler can easily cast `small` from `int` to `short` at compile-time because the value 15 is small enough to fit inside a short. The same for the `1+2` expression </br>But in the last case, the `big` is **too large** to fit inside of short **without an explicit cast**.
 
 ---
+<a id="c4-writing-while-loops"/></a>
 ### Writing while Loops
 A loop is a repetitive control structure that can execute a statement of code multiple times in succession.
 
 ---
+<a id="c4-while-statement"/></a>
 #### While statement
 ```java
 while (booleanExpression){
@@ -1632,6 +1659,7 @@ while (booleanExpression){
 * You can use `&&`, `||`, `&`, `|` operators on the expression
 
 ---
+<a id="c4-do-while-statement"/></a>
 #### The do/while Statement
 A `do/while` loop guarantees that the statement or block will be executed at least once. Whereas a while loop is executed zero or more times, a do/while loop is executed one or more times.
 
@@ -1649,9 +1677,11 @@ do {
 Make sure the loop condition, or the variables the condition is dependent on, are changing between executions, otherwise you could run out of memory.
 
 ---
+<a id="c4-cont-for-loops"/></a>
 ### Constructing for Loops
 Another kind of loop, when you want to iterate over a statement a specific number of times may be the best option
 
+<a id="c4-for-loops"/></a>
 #### The for Loop
 
 ```java
@@ -1693,6 +1723,7 @@ for (var i = 4; i >= 0; i--) {
 ```
 
 ---
+<a id="c4-scenarios-using-loops"/></a>
 #### Scenarios while using for loop
 There are some scenarios that are not normal in real life but we must be aware during the exam
 
@@ -1776,6 +1807,7 @@ for(int k=0; k<10; ) //COMPILES and NOT infinite (good example)
 ```
 
 ---
+<a id="c4-for-each-loop"/></a>
 #### The for-each Loop
 The for-each loop is a specialized structure designed to iterate over arrays and various Collection Framework classes
 
@@ -1813,9 +1845,10 @@ for(int name : names) {  // DOES NOT COMPILE
 ```
 
 ---
-
+<a id="c4-flow-with-branching"/></a>
 ### Controlling Flow with Branching
 
+<a id="c4-nested-loops"/></a>
 #### Nested Loops
 A nested loop is a loop that contains another loop including while, do/while, for, and for-each loops. You can create infinite "loop inside loop" structure mixing everything we've seen so far `for, foreach, while, do-while`
 
@@ -1856,6 +1889,7 @@ while(hungryHippopotamus>0) {
 > When working with inner-loops, pay attention to the order of execution, the innermost loop "holds" the outermost one. Review the examples above to understand
 
 ---
+<a id="c4-optional-labels"/></a>
 #### Adding Optional Labels
 A label is an optional pointer to the head of a statement that allows the application flow to jump to it or break from it.</br> It is a *single identifier* that is proceeded by a colon (`:`).
 
@@ -1886,6 +1920,7 @@ ANOTHER: } //COMPILATION ERROR: Label without a statement
 > Label are useful for `loop` statements, because you can reference an **external loop** inside an **internal loop** for example, and ask to stop it (`break;`)
 
 ---
+<a id="c4-break-statement"/></a>
 #### The break Statement
 A break statement transfers the flow of control out to the enclosing statement. When used with `loops` it will end the loop early.
 
@@ -1898,10 +1933,111 @@ optionalLabel: while(booleanExpression){
 }
 ```
 
-**Break / Label Rules:**
+**Break Rules:**
 
-* **Required:** Parentheses
-* **Required:** Colon
-* **Required:** The right side **must** be an array or collection of items, such as a List or a Set (Any class that **implements Collection** interface)
+* **Required:** Semicolon `;`
 
+* **Optional:** Label </br>If you not refer a Label, the break statement will terminate the nearest inner loop it is currently in the process of executing.
+
+
+---
+**Label Rules**
+
+* **Required:** Semicolon `;`
+
+* **Optional**: Using uppercase letters, with underscores between words. Not required, it's just a convention 
+
+---
+
+The optional label parameter allows us to break out of a higher-level outer loop.
+
+```java
+PARENT_LOOP: for(...) {
+         for(...) {
+            if(conditionMet) {
+               break PARENT_LOOP;
+            }
+         }
+      }
+```
+
+In the example above, if we used the `break` **without a label**, it would stop just the inner loop and move on to the next iteration of the outer loop, this can **generate unnecessary loops** and can also **affect the output result**
+
+> Using a label on a break statement in a nested loop, or not using the break statement at all, can cause the loop structure to behave quite differently.
+
+---
+<a id="c4-continue-statement"/></a>
+#### The continue Statement
+A statement that causes flow to finish the execution of the current loop
+
+```java
+optionalLabel: while(booleanExpression){
+	// Body
+	
+	//Somewhere in loop
+	continue optionalLabel;
+}
+```
+
+**Continue Rules:**
+
+* **Required:** Semicolon `;`
+
+* **Optional:** Label </br>If you not refer a Label, the continue statement will terminate the nearest inner loop it is currently in the process of executing.
+
+While the **break statement transfers control to the enclosing statement**, </br>the **continue statement transfers control to the boolean expression that determines if the loop should continue**. In other words, **it ends the current iteration of the loop**.
+
+```java
+//TODO: Elaborate continue Example in code
+```
+
+---
+<a id="c4-return-statement"/></a>
+#### The return Statement
+Assuming your loop is inside a method, you can use the `return` statement to exit a chain of loops instead of using `break / continue` statements
+
+```java
+public int findValue(...)
+for(...){
+   for (...) {
+   	for (...) {
+   		if(conditionMet) {
+   			return value; //If code reaches to this point, it will return the value to the method and all the chain of loops will be skipped.
+```
+
+**PS**: We'll take more about `return` in the next Chapers
+
+---
+<a id="c4-unreachable-code"/></a>
+#### Unreachable Code
+When using `break`, `continue`, and `return` any code **placed immediately after** them in the same block is **considered unreachable** and will **not compile**.
+
+```java
+//Ex 1:
+for (...){
+	if(conditionMet) {
+      break;
+      checkDate++;  // DOES NOT COMPILE
+   }
+   
+//Ex 2:
+int myVar = 1;
+HEY: while(...) {
+   if(conditionMet) {
+      continue HEY; myVar++; // DOES NOT COMPILE
+      System.out.print("Hello!");  // DOES NOT COMPILE
+```
+
+---
+<a id="c4-reviewing-branching"/></a>
+#### Reviewing Branching
+
+Loop | Allows labels | Allows break | Allows continue
+------- | ------- | ------- | -------
+while | Yes | Yes | Yes
+do while | Yes | Yes | Yes
+for | Yes | Yes | Yes
+switch | Yes | Yes | No
+
+**PS:** You can use `return` in all of the.</br> Just keep in mind you're covering all the possible "return cases" in your code, otherwise you will face a `Missing return statement` (we'll talk more about it latter)
 
