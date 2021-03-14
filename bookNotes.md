@@ -1340,11 +1340,11 @@ boolean gorilla = 10.2 == "Koko";
 
 Operator | Description
 ------- | -------
-< | Returns true if the value on the left is **strictly less** than the value on the right
-<= | Returns true if the value on the left is less than **or equal** to the value on the right
-> | Returns true if the value on the left is **strictly greater** than the value on the right
->= | Returns true if the value on the left is greater than **or equal** to the value on the right
-a instanceof b | Returns true if the reference that a points to is an instance of a class, subclass, or class that implements a particular interface, as named in b
+`<` | Returns true if the value on the left is **strictly less** than the value on the right
+`<=` | Returns true if the value on the left is less than **or equal** to the value on the right
+`>` | Returns true if the value on the left is **strictly greater** than the value on the right
+`>=` | Returns true if the value on the left is greater than **or equal** to the value on the right
+`a instanceof b` | Returns true if the reference that a points to is an instance of a class, subclass, or class that implements a particular interface, as named in b
 
 The first four relational operators, apply only to numeric values. If the two numeric operands are not of the same data type, the smaller one is promoted as previously discussed.
 
@@ -1841,7 +1841,7 @@ public void showNames(String[] names) {
 ##### More notes about for-each
 
 * Like the regular for loop, the for-each loop also accepts var for the loop variable
-* When you see a for-each loop on the exam, **make sur**e the right side is an **array or Iterable object** and the left side has **a matching type**.
+* When you see a for-each loop on the exam, **make sure** the right side is an **array or Iterable object** and the left side has **a matching type**.
 
 ```java
 String[] names = new String[3];
