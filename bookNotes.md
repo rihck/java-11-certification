@@ -1035,12 +1035,12 @@ Requires exactly one operand, or variable, to function. They often perform simpl
 
 Operator | Description
 ------- | -------
-! | Inverts a boolean’s logical value
-+ | Indicates a number is positive, although numbers are assumed to be positive in Java unless accompanied by a negative unary operator
-- | Indicates a literal number is negative or negates an expression
-++ | Increments a value by 1
--- | Decrements a value by 1
-(type) | Casts a value to a specific type.
+`!` | Inverts a boolean’s logical value
+`+` | Indicates a number is positive, although numbers are assumed to be positive in Java unless accompanied by a negative unary operator
+`-` | Indicates a literal number is negative or negates an expression
+`++` | Increments a value by 1
+`--` | Decrements a value by 1
+`(type)` | Casts a value to a specific type.
 
 * The `!` operator flips the value of a boolean expression.
 
@@ -1098,11 +1098,11 @@ int b = 3 * 5 / 3;   // a assigned value of 3
 
 Operator | Description
 ------- | -------
-+ | Adds two numerics values
-- | Subtracts two numeric values
-* | Multiplies two numeric values
-/ | Divides one numeric value by another
-% | Modulus operators returns the remainder after division of one numeric value by another
+`+` | Adds two numerics values
+`-` | Subtracts two numeric values
+`*` | Multiplies two numeric values
+`/` | Divides one numeric value by another
+`%` | Modulus operators returns the remainder after division of one numeric value by another
 
 *Reminder*: The operators `*, /, %` have a higher order of precedence than the `+, -` ones.
 
@@ -1398,8 +1398,10 @@ The logical operators, `(&), (|), and (^)`, may be applied to both numeric and b
 Operator | Description
 ------- | -------
 & | Logical AND is true only if both values are true.
-`|` | Logical AND is true only if both values are true.
+PIPE | Inclusive OR is true if at least one of the values is true.
 ^ | Exclusive XOR is true only if one value is true and the other is false.
+
+**PS: PIPE means `|`,** MD format did not let me put in this way above because it's inside a table that uses `|` as column separator
 
 ---
 <a id="c3-short-circuit-operators"/></a>
@@ -1408,7 +1410,9 @@ Operator | Description
 Operator | Description
 ------- | -------
 && | Is true only if both values are true.</br> If the left side is false, then the right side **will not be evaluated.**
-`||` | Is true if at least one of the values is true.</br>. If the left side is true, then the right side **will not be evaluated.**
+PIPE PIPE | Is true if at least one of the values is true.</br>If the left side is true, then the right side **will not be evaluated.**
+
+**PS: PIPE PIOE means `||`,** MD format did not let me put in this way above because it's inside a table that uses `|` as column separator
 
 * Logical Operator `& |`: evaluates **both sides** of the expression.
 * Short-Circuit Operator `&& ||`: the *right side of the expression may never be evaluated* **if the final result** can be determined **by the left side** of the expression.
