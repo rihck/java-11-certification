@@ -2112,6 +2112,7 @@ System.out.println(s2); //12
 > The output is 12 because Strings are Immutable, so the original String object did not change! The concat method only returns a new String instance
 
 ---
+<a id="c5-important-string-methods"/></a>
 #### Important String Methods
 Remember that a **string** is a **sequence of characters** and Java **counts from 0**
 
@@ -2171,6 +2172,7 @@ The method substring() also looks for characters in a string. It returns parts o
 
 With this method we have to think in index in a different way. Pretend the indexes are right before the character they would point to.
 
+<a id="c5-sub-string-logic"/></a>
 ![subStringEx](https://github.com/rickhpdev/java-11-certification/blob/main/images/subStringEx.png?raw=true)
 
 `Method Overloads: 2`
@@ -2272,5 +2274,224 @@ System.out.println("abc".contains("B")); // false
 
 ---
 ##### trim(), strip(), stripLeading(), and stripTrailing()
+They're all related to remove space from String with some differences
+
+
+Method | Descrption
+------- | -------
+`trim()`  | Remove whitespace from the beginning and end of a String
+`strip()` | Same of `trim()` but supports Unicode
+`stripLeading()` | **Removes** whitespace from **the beginning** of the String and **leaves** at **the end**
+`stripTrailing()` | **Removes** whitespace from **the end** of the String and **leaves** at **the beginning**
+
+**PS:** None of them remove spaces between the string, only before/after
+
+`Method Overloads: 0`
+
+```java
+String t = " abc\t ";
+System.out.println(t.trim().length());         // 3
+System.out.println(t.strip().length());        // 3
+System.out.println(t.stripLeading().length()); // 5
+System.out.println(t.stripTrailing().length());// 4
+```
+
+**Whitespace consists of** (what is trimmed)
+
+* Spaces along with the `\t` (tab) and `\n` (newline) characters 
+* Other characters, such as `\r` (carriage return)
+
+**PS:** Do not confuse `\` with `/`. The `/` are is a normal character, the `\` is a backslash escape
+
+##### Notes that this special characters (and spaces)
+
+```java
+//1 - They count as ONE character
+System.out.println("b\na".length()); //3 (not 4)
+
+//2 - If there's no content on their left side, they don't count
+System.out.println("\n\t\r".length()); //0 (not 3)
+
+//3 - Only spaces don't count
+System.out.println("     ".length()); //0
+
+4 - Only spaces between "valid" content counts
+System.out.println("      2  a  c";.length()); //7 (spaces before "2" are not being counted)
+```
+
+:bangbang: **Exam Tip:**
+> You don’t need to know about Unicode for the exam
+
+---
+##### intern()
+The `intern()` method returns the value from the string pool if it is there. Otherwise, it adds the value to the string pool. It will be covered latter
+
+`Method Overloads: 0`
+
+```java
+String intern()
+```
+
+---
+#### Method Chaining
+We can mix all this String methods we've seen so far, be aware of that and practice it.</br> Since all the methods returns a **new String**, we can keep **chaining the methods** calling if from the **new String returned**.
+
+```java
+String result = "1TeXt   ".trim().toLowerCase().replace('1', '2'); // 2text
+```
+
+* Remember that String is immutable. Every string Method will return a NEW STRING and NOT modify the existing one
+
+```java
+5: String a = "abc";
+6: String b = a.toUpperCase();
+7: b = b.replace("B", "2").replace('C', '3');
+8: System.out.println("a=" + a); //abc
+9: System.out.println("b=" + b); //AC3
+
+//PS: 4 Strings were created here
+```
+
+---
+### Using the StringBuilder Class
+Concat Strings using `+` creates a bunch of objects since String is immutable, that's why we have the StringBuilder class!
+
+**PS:** Look at the book for a full explanation about it with examples
+
+```java
+StringBuilder builder = new StringBuilder();
+builder.append("text").append("text2")...;
+```
+
+:bangbang: **Exam Tip:**
+> In addition to StringBuilder, there's also StringBuffer BUT is no longer on either exam
+
+---
+#### Mutability and Chaining
+Different from `String`, the `StringBuilder` is **Mutable**. When chaining StringBuilder, it **does not create a new object**, it changes its own state and **returns a reference to itself**
+
+```java
+StringBuilder sb = new StringBuilder("start");
+sb.append("+middle");                      // sb = "start+middle"
+StringBuilder same = sb.append("+end");    // "start+middle+end"
+
+System.out.println(same == sb); //true (same object in memory)
+```
+
+---
+#### Creating a StringBuilder
+There are three ways to construct a StringBuilder
+
+```java
+// 1 - Creates containing empty characters
+StringBuilder sb1 = new StringBuilder();
+
+// 2 - Creates containing some characters
+StringBuilder sb2 = new StringBuilder("animal");
+
+// 3 - Creates containing empty characters 
+// But Tells Java that we have some idea of how big the eventual value will be
+StringBuilder sb3 = new StringBuilder(10);
+```
+
+---
+#### Important StringBuilder Methods
+##### charAt(), indexOf(), length(), and substring()
+Work exactly the same as in the <a href="#c5-important-string-methods">String class</a>
+
+**PS**: When using **these specific methods** on StringBuilder, remember they don't modify the StringBuilder instance, they return new values to be used / assigned
+
+```java
+StringBuilder sb = new StringBuilder("animals");
+String sub = sb.substring(...); //Returns a new String
+```
+
+---
+##### append()
+It adds the parameter to the StringBuilder and returns a reference to the current StringBuilder
+
+`Method Overloads: 10+` (Because it accepts different variable types)
+
+```java
+StringBuilder sb = new StringBuilder().append(2).append('D');
+sb.append("-").append(true); // // 2D-true
+```
+
+---
+##### insert()
+Adds characters to the StringBuilder at the **requested index** and returns a reference to the current StringBuilder
+
+```java
+StringBuilder sb = new StringBuilder("hello");
+sb.insert(5, "-");                   // sb = hello-
+sb.insert(2, "-");                   // sb = he-llo-
+```
+
+`Method Overloads: 0`
+`Methods throw exception if invalid Index?` **YES** 
+
+**Notes:**
+
+* Every time you put a new character, the indexes changes
+* The index says where the character will be put, so the existing character at that index will be moved to right
+
+---
+##### delete() and deleteCharAt()
+`delete()` removes **characters from a index sequence** and returns a reference to the current StringBuilder
+`deleteCharAt()` removes **one character from a specific index** and returns a reference to the current StringBuilder
+
+```java
+StringBuilder sb = new StringBuilder("abcdef");
+sb.delete(1, 3);                  // sb = adef (same "substring logic")
+sb.deleteCharAt(5);               // throws an exception
+```
+
+`Method Overloads: 0`
+`Methods throw exception if invalid Index?` **YES** 
+
+* As we can see, in the first example, the method removed from `index 1` (d) to **right before** `index 3` (c)
+
+**PS**: The `delete()` method uses the same <a href="#c5-sub-string-logic">"right before index" substring logic</a>
+
+---
+##### replace()
+Works different from String one and returns a reference to the current StringBuilder 
+
+```java
+StringBuilder builder = new StringBuilder("pigeon dirty");
+builder.replace(3, 6, "sty"); // pigsty dirty  
+
+//Also possible: Replacing the text with nothing
+builder.replace(3, 100, ""); //pig
+
+// Invalid starting index
+builder.replace(233, 100, ""); //throws an exception
+```
+
+`Method Overloads: 0`
+`Methods throw exception if invalid Index?` **YES** (Only when invalid `startIndex`)
+
+**PS**: Also uses the same <a href="#c5-sub-string-logic">"right before index" substring logic</a>
+
+---
+##### reverse()
+Reverses the characters in the sequences and returns a reference to the current StringBuilder
+
+```java
+StringBuilder sb = new StringBuilder("ABC");
+sb.reverse(); //CBA
+```
+
+---
+##### toString()
+Converts a StringBuilder into a String
+
+```java
+StringBuilder sb = new StringBuilder("ABC");
+String s = sb.toString();
+```
+
+---
+### Understanding Equality
 
 
