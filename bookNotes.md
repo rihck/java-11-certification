@@ -2100,6 +2100,8 @@ A Immutable class means that the class can't change. You can make a Immutable cl
 ##### Concat method
 We saw that we can use `+` to concatenate strings, but there's also the `concat` method.
 
+`Method Overloads: 0`
+
 ```java
 String s1 = "1";
 String s2 = s1.concat("2");
@@ -2116,6 +2118,8 @@ Remember that a **string** is a **sequence of characters** and Java **counts fro
 ##### length()
 The method length() returns the number of characters in the String
 
+`Method Overloads: 0`
+
 ```java
 String string = "animals";
 System.out.println(string.length());  // 7
@@ -2125,6 +2129,8 @@ System.out.println(string.length());  // 7
 ---
 ##### charAt()
 The method charAt() lets you query the string to find out what character is at a `specific index`.
+
+`Method Overloads: 0`
 
 ```java
 String string = "animals";
@@ -2138,6 +2144,133 @@ System.out.println(string.charAt(7));  // throws exception
 ##### indexOf()
 The method indexOf() looks at the characters in the string and finds the first index that matches the desired value.
 
+* `indexOf` can work with an individual character or a whole String as input
+* It can also start from a requested position (index), it's the second parameter when exists
+* The method signature when receives a `char` is `indexOf(int ch)` because char can be passed as a int
+* If it can't find a match, it will return `-1`
+* Doesn't throw exception if can't find the value (different from `charAt`)
+* It's **case sensitive**
 
+`Method Overloads: 4`
+
+```java
+//All possible method signatures
+String string = "animals";
+System.out.println(string.indexOf('a'));         // 0
+System.out.println(string.indexOf("al"));        // 4
+System.out.println(string.indexOf('a', 4));      // 4
+System.out.println(string.indexOf("al", 5));     // -1 (Not Match)
+```
+
+---
+##### substring()
+The method substring() also looks for characters in a string. It returns parts of the string
+
+* The first parameter is the index to start with for the returned string.
+* There is an optional second parameter, which is the end index you want to stop at
+
+With this method we have to think in index in a different way. Pretend the indexes are right before the character they would point to.
+
+![subStringEx](https://github.com/rickhpdev/java-11-certification/blob/main/images/subStringEx.png?raw=true)
+
+`Method Overloads: 2`
+
+```java
+String string = "animals";
+System.out.println(string.substring(3));                   // mals
+System.out.println(string.substring(string.indexOf('m'))); // mals
+System.out.println(string.substring(3, 4));                // m
+System.out.println(string.substring(3, 7));                // mals
+```
+
+* There are also less obvious / edge-cases
+
+```java
+//Case 1: we start and end with the same index, there are no characters in between
+System.out.println(string.substring(3, 3)); // empty string
+
+//Case 2: the indexes can’t be backward
+System.out.println(string.substring(3, 2));  // throws exception 
+
+//Case 3: There is no eighth position
+System.out.println(string.substring(3, 8)); // throws exception
+
+//PS: There is no seventh character either, but at least there is the “end of string” invisible position
+```
+
+* Substring review: Returns the string starting from the requested index. If an end index is requested, it stops right before that index. Otherwise, it goes to the end of the string
+
+:bangbang: **Exam Tip:**
+> The substring() method is the trickiest String method on the exam. Make sure you understand how it works reviewing the examples and the edge-cases
+
+---
+##### toLowerCase() and toUpperCase()
+These methods converts any lowercase characters to uppercase and vice-versa in the returned string
+
+`Method Overloads: 0`
+
+```java
+String string = "dAaDy";
+System.out.println(string.toUpperCase());  // DADDY
+System.out.println("Abc123".toLowerCase());  // daddy
+```
+
+---
+##### equals() and equalsIgnoreCase()
+* The **equals()**: checks whether two String objects contain exactly the same characters in the same order.
+* The **equalsIgnoreCase()**: the same but it will "ignore" the case (convert the characters’ case if needed)
+
+`Method Overloads: 0`
+
+```java
+System.out.println("abc".equals("ABC"));  // false
+System.out.println("ABC".equals("ABC"));  // true
+System.out.println("abc".equalsIgnoreCase("ABC"));  // true
+```
+
+**PS**: The `equals()` **receives an object** because it's the same for all Objects (comes from Object Class), the `equalsIgnoreCase()` **only receives** `String`
+
+---
+##### startsWith() and endsWith()
+The startsWith() and endsWith() methods look at whether the provided value matches part of the String (start or end) 
+
+`Method Overloads: 0`
+
+```java
+System.out.println("baby".startsWith("b")); // true
+System.out.println("baby".startsWith("B")); // false
+System.out.println("baby".endsWith("y")); // true
+System.out.println("baby".endsWith("b")); // false
+```
+
+**PS**: Like all other methods, it's **case-sensitive**
+
+---
+##### replace()
+The replace() method does a simple search and replace on the string
+
+`Method Overloads: 2`
+
+```java
+//Receiving char
+System.out.println("abcabc".replace('a', 'A')); // AbcAbc
+
+//Receiving char-sequence (String)
+System.out.println("abcabc".replace("ab", "AB")); // ABcABc
+```
+
+---
+##### contains()
+Looks for matches in the String, the match can be anywhere in the String
+
+`Method Overloads: 0`
+
+```java
+System.out.println("abc".contains("b")); // true
+System.out.println("abc".contains("B")); // false
+```
+
+---
+##### trim(), strip(), stripLeading(), and stripTrailing()
 
 
