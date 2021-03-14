@@ -2048,3 +2048,96 @@ switch | Yes | Yes | No
 **PS II**: `if` statement only supports `return` and `labels`, but **NOT** `break` and `continue`
 
 
+---
+
+<a id="chapter5"/></a>
+## _Chapter 5:  Core Java APIs_ 
+<a id="c3-operators"/></a>
+### Creating and Manipulating Strings
+A string is basically a sequence of characters. In Java, these two snippets both create a String
+
+```java
+String name = "Fluffy";
+String name = new String("Fluffy");
+```
+
+This difference is related to `StringPool`, we'll cover it latter. Just remember we can create Strings *with/without* `new` keyword.
+
+---
+#### Concatenation
+Placing one String before the other String and combining them (`+`) is called string concatenation. The `+` operator can be used in two ways within the same line of code.
+
+* If both operands are **numeric**, `+` means **numeric addition**
+* If either operand is a **String**, `+` means **concatenation**
+* The expression is evaluated left to right
+
+```java
+System.out.println(1 + 2);           // 3
+System.out.println("a" + "b");       // ab
+System.out.println("a" + "b" + 3);   // ab3
+System.out.println(1 + 2 + "c");     // 3c
+System.out.println("c" + 1 + 2);     // c12
+```
+
+The **same rules** are applied to <a href="#c3-compound-assignment">compound assignment operators</a>
+
+```java
+4: String s = "1";             // s currently holds "1"
+5: s += "2";                   // s currently holds "12"
+6: s += 3;                     // s currently holds "123"
+7: System.out.println(s);      // 123
+```
+
+---
+#### Immutability
+**String is immutable**. Once a String object is created, it is not allowed to change. It cannot be made larger or smaller, and you cannot change one of the characters inside it.
+
+A Immutable class means that the class can't change. You can make a Immutable class by not exposing its attributes and not creating `set methods`, only `get` ones.
+
+**PS:** Immutable classes in java are `final`, which *prevents* subclasses creation.
+
+---
+##### Concat method
+We saw that we can use `+` to concatenate strings, but there's also the `concat` method.
+
+```java
+String s1 = "1";
+String s2 = s1.concat("2");
+s2.concat("3");
+System.out.println(s2); //12
+```
+
+> The output is 12 because Strings are Immutable, so the original String object did not change! The concat method only returns a new String instance
+
+---
+#### Important String Methods
+Remember that a **string** is a **sequence of characters** and Java **counts from 0**
+
+##### length()
+The method length() returns the number of characters in the String
+
+```java
+String string = "animals";
+System.out.println(string.length());  // 7
+//The index counts from 0 but the length counts from 1, that's why the output is 7 and not 6
+```
+
+---
+##### charAt()
+The method charAt() lets you query the string to find out what character is at a `specific index`.
+
+```java
+String string = "animals";
+System.out.println(string.charAt(0));  // a
+System.out.println(string.charAt(6));  // s
+System.out.println(string.charAt(7));  // throws exception
+//Like we said, indexes count from 0, so the last letter is on the 6 index, not 7
+```
+
+---
+##### indexOf()
+The method indexOf() looks at the characters in the string and finds the first index that matches the desired value.
+
+
+
+
