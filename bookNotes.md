@@ -2493,5 +2493,79 @@ String s = sb.toString();
 
 ---
 ### Understanding Equality
+#### Comparing equals() and ==
 
+* `equals()`: Depends on object equals implementation, **the String equals() compares the content**
+* `==`: Compares memory reference
+
+**PS:** **The String equals() compares the content**. The authors did not implement equals for StringBuilder.
+**PS II:** If a object does not implement the `equals()` method, the default behavior is compare the memory reference `==`
+
+```java
+String x = new String("Hello World");
+String z = new String("Hello World");
+System.out.println(x.equals(z)); // true
+System.out.println(x == z); // false
+```
+
+* You can't compare objects references of different types 
+
+```java
+String string = "a";
+StringBuilder builder = new StringBuilder("a");
+System.out.println(string == builder); //DOES NOT COMPILE
+```
+
+-> **New People:** _Important topic_, look at the book for more in-depth explanation and more examples.
+
+---
+#### The String Pool
+Was created for memory optimisation when talking about String. The string pool contains literal values and constants that appear in your program
+
+* When we create literals/constants they're stored as one in the String Pool, both point to the same memory reference
+
+```java
+String x = "Henry";
+String y = "Henry";
+System.out.println(x == y);    // true
+```
+
+* If you perform a action that **creates a new String object**, it **will not** be stored on the String Pool, since it's not a literal/constant. </br>Basically when you use `new` (or use a methods that does this) you're telling Java: "Don't use String Pool!"
+
+```java
+String x = "Henry";
+String z = " Henry".trim();
+System.out.println(x == z); // false
+```
+
+* You can "force" Java to use the String Pool by using the `intern()` method
+
+```java
+String name = "Hello World";
+String name2 = new String("Hello World").intern();
+System.out.println(name == name2);     // true
+```
+
+The intern() method will use an object in the string pool if one is present. If the literal is not yet in the string pool, Java will add it at this time
+
+**PS**: Remember that **compile-time constant** (without `new()`) automatically **gets placed in the string pool**
+
+```java
+// Two compile-time constant WITHOUT new
+String first = "rat" + 1;
+String second = "r" + "a" + "t" + "1";
+System.out.println(first == second); //true
+
+// compile-time constant WITH new
+String third = "r" + "a" + "t" + new String("1");
+System.out.println(first == second); //false
+
+// Works when we force String Pool
+System.out.println(first == third.intern());
+```
+
+-> **New People:** _Important topic_, look at the book for more in-depth explanation and more examples.
+
+---
+### Understanding Java Arrays
 
