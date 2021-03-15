@@ -744,6 +744,8 @@ A variable is a class variable if it has the static keyword in its declaration.
 :bangbang: **Exam Tip:**
 > You’ll need to memorize everything in this table except the default value of char.
 
+<a id="c2-default-initialization"/></a>
+
 Variable Type | Default initialization value
 ------- | -------
 boolean | false
@@ -2568,4 +2570,278 @@ System.out.println(first == third.intern());
 
 ---
 ### Understanding Java Arrays
+array is an area of memory on the heap with space for a designated number of elements, is an ordered list
+
+**PS:** We can create arrays of primitive types but the **array itself is a reference type**
+
+---
+#### Creating an Array of Primitives
+
+```java
+int[] myAar = new int[3];
+
+//element [0, 0, 0]
+//index   [0, 1, 2]
+```
+
+Here we have (left to right):
+
+* `int`: Type of array
+* `[]`: Array Symbol (Required)
+* `[3]`: Size of array
+
+**Things to keep in Mind**
+
+* When we create an array, all elements are set to the <a href="#c2-default-initialization">default value</a>, in case of int it's `0`
+* The indexes also starts from 0
+
+##### Creating array specifying all the elements it should start out with
+
+```java
+int[] numbers2 = {42, 55, 99}; //Possible (called anonymous array)
+int[] numbers2 = new int[] {42, 55, 99}; //Also Possible (but redundant)
+
+//element [42, 55, 99]
+//index   [0,  1,  2]
+```
+
+The second example is redundant because java already knows the type and array size when you specify the values, so you can ommit it (first example)
+
+---
+##### Another syntaxes to create arrays
+
+```java
+int[] numAnimals;
+int numAnimals4[];
+int      [] 
+		numAnimals2; //In Java spaces and line breaks doesn't matter
+```
+
+* You can use <a href="#c2-multiple-variables">multiple declaration</a> with arrays also
+
+```java
+int[] ids, types; //Creates 2 arrays
+
+int ids[], types; //Creates 1 int array and 1 int primitive
+```
+
+---
+#### Creating an Array with Reference Variables
+You can choose any Java type to be the type of the array
+
+```java
+String [] bugs = { "cricket", "beetle", "ladybug" };
+String [] alias = bugs;
+System.out.println(bugs.equals(alias));     // true
+
+//Arrays doesn't implement equals, so it compares memory reference
+``` 
+
+The equals() method on arrays **does not look at the elements** of the array, arrays don't implement equals, so **it compares array memory reference**
+
+* Since array can hold reference types, we can point them to another places but we should keep in mind the casting rules
+
+```java
+3: String[] strings = { "stringValue" };
+4: Object[] objects = strings;
+5: String[] againStrings = (String[]) objects; // Casting
+6: againStrings[0] = new StringBuilder();   // DOES NOT COMPILE (Builder is not a String type)
+7: objects[0] = new StringBuilder();        // COMPILES (Builder inherit from Object, like ALL OTHER objects in Java)
+
+//PS: last case compiles but throws exception since we have an array of objects that are Strings and no StringBuilders
+```
+
+---
+#### Using an Array
+
+```java
+4: int mine = {99};
+5: System.out.println(mine.length);          // 1
+6: System.out.println(mine0]);               // 99
+6: System.out.println(mine[1]);              // OutOfBounds exception
+6: System.out.println(mine[mine.length]);    // OutOfBounds exception
+```
+
+* Remember that **indexes are different from length**. Index starts from 0 so the last index position is always `length - 1`
+
+---
+#### Sorting
+We can sort an array by providing a bunch of sort methods
+
+* Remember we should import array before using it
+
+```java
+import java.util.*;          // import whole package including Arrays
+import java.util.Arrays;     // import just Arrays
+```
+
+* Sorting using `int` type: sorts in Asc Order
+
+```java
+int[] numbers = { 6, 9, 1 };
+Arrays.sort(numbers); // 1, 6, 9
+```
+
+* Sorting using `String` type: sorts in alphabetic order
+
+```java
+String[] strings = { "10", "9", "100" };
+Arrays.sort(strings); // 10 100 9 (1 sorts before 9)
+```
+
+Alphabetic Order: Numbers sort before letters, and uppercase sorts before lowercase, in case you were wondering
+
+:bangbang: **Exam Tip:**
+> We can create custom sort orders by using `Comparator`, it should be covered latter
+
+---
+#### Searching
+Java also provides a convenient way to search—but **only if the array is already sorted** (ASC Order)
+
+Scenario | Result
+------- | -------
+Target element found in sorted array | Index of match
+Target element not found in sorted array | Negative value showing one smaller than the negative of the index, where a match needs to be inserted to preserve sorted order
+Unsorted array | A surprise—this result isn’t predictable
+
+```java
+3: int[] n = {2,4,6,8};
+4: System.out.println(Arrays.binarySearch(n, 2)); // 0
+5: System.out.println(Arrays.binarySearch(n, 4)); // 1
+6: System.out.println(Arrays.binarySearch(n, 1)); // -1
+7: System.out.println(Arrays.binarySearch(n, 3)); // -2
+```
+
+* If the value is not in the vector, it shows **where it would be in the index and adds +1** to this index, and then **prints as negative value** `-`
+
+:bangbang: **Exam Tip:**
+> During the exam, you don't need to know the output when the array is not ordered, in this case look for the unpredictable output answer.
+
+---
+#### Comparing
+Java also provides methods to compare two arrays to determine which is “smaller.”
+
+##### compare()
+When using `compare()`, what the return value means:
+
+* A **negative number** means the first array is smaller than the second.
+* A **zero** means the arrays are equal.
+* A **positive number** means the first array is larger than the second.
+
+---
+##### And some rules when comparing arrays of different lengths:
+
+* If both arrays are the **same length** and have the **same values** in each spot in the **same order**, **return zero**
+* If all the elements **are the same** but the **second array has extra elements** at the end, **return a negative** number
+* If all the elements **are the same** but the **first array has extra elements** at the end, **return a positive** number
+* If the **first element that differs is smaller** in the **first array**, **return a negative** number
+* If the **first element that differs is larger** in the **first array**, **return a positive number**
+
+
+---
+##### What does smaller mean
+
+* **null** is smaller than any other value
+* For **numbers**, normal numeric order applies
+* For **strings**, one is smaller if it is a prefix of another
+* For **strings/characters**, numbers are smaller than letters
+* For **strings/characters**, uppercase is smaller than lowercase
+
+---
+##### Compare examples with some rules applied
+
+First array | Second array | Result | Reason
+------- | ------- | ------- | ------- 
+`{1, 2}` | `{1}` | Positive number | The first element is the same, but the first array is longer
+`{1, 2}` | `{1, 2}` | Zero | Exact match
+`{"a"}`  | `{"aa"}` | Negative number | The first element is a substring of the second
+`{"a"}`  | `{"A"}`  | Positive number | Uppercase is smaller than lowercase
+`{"a"}`  | `{null}` | Negative number | null is smaller than a letter
+
+* We can't compare arrays of different types
+
+```java
+System.out.println(Arrays.compare(
+   new int[] {1}, new String[] {"a"})); // DOES NOT COMPILE
+```
+
+---
+#### missmatch
+If the arrays are equal, mismatch() returns -1. Otherwise, it returns the first index where they differ
+
+```java
+System.out.println(Arrays.mismatch(new int[] {1}, new int[] {1})); //-1
+System.out.println(Arrays.mismatch(new String[] {"a"}, new String[] {"A"})); //0
+System.out.println(Arrays.mismatch(new int[] {1, 2}, new int[] {1})); //1
+```
+
+<!-- Colocar no menu -->
+##### equals() vs compare() vs mismatch()
+
+Method | When arrays are the same | When arrays are different
+------- | ------- | -------
+`equals()`   | true | false
+`compare()`  | 0    | Positive or negative number
+`mismatch()` | -1   | Zero or positive index
+
+---
+#### Varargs
+We can pass arrays as a different way for methods
+
+```java
+public static void main(String[] args)
+public static void main(String args[])
+public static void main(String... args) // varargs
+```
+
+---
+#### Creating a Multidimensional Array
+There are some ways to declare multiple arrays
+
+```java
+int[][] vars1;          // 2D array
+int vars2 [][];         // 2D array
+int[] vars3[];          // 2D array
+int[] vars4 [], space [][];  // a 2D AND a 3D array
+
+String [][] rectangle = new String[3][2]; // 2D array initializing values
+rectangle[0][1] = "set"; // Accessing a 2D array position
+```
+
+* We can create different multi-dimensional arrays
+
+```java
+// Creating a "sparsely" multi-dimensional array
+int[][] differentSizes = {{1, 4}, {3}, {9,8,7}};
+
+// Initializing just an array’s first dimension and define the size of each array component in a separate statement
+int [][] args = new int[4][];
+args[0] = new int[5];
+args[1] = new int[3];
+```
+
+#### Using a Multidimensional Array
+```java
+//For
+int[][] twoD = new int[3][2];
+
+for (int i = 0; i < twoD.length; i++) {
+   for (int j = 0; j < twoD[i].length; j++)
+      System.out.print(twoD[i][j] + " "); // print element
+      
+   System.out.println(); // new row
+}
+
+//For-each
+for (int[] inner : twoD) {
+   for (int num : inner)
+      System.out.print(num + " ");
+      
+   System.out.println(); // new row
+}
+```
+
+---
+
+
 
