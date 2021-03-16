@@ -2842,6 +2842,288 @@ for (int[] inner : twoD) {
 ```
 
 ---
+### Understanding an ArrayList
+An ArrayList is an ordered sequence that allows duplicates.
 
+#### Creating an ArrayList
+
+```java
+import java.util.ArrayList; // import just ArrayList
+
+//3 Old Possible ways
+ArrayList list1 = new ArrayList();
+ArrayList list2 = new ArrayList(10);
+ArrayList list3 = new ArrayList(list2);
+
+//2 New Possible ways
+ArrayList<String> list4 = new ArrayList<String>();
+ArrayList<String> list5 = new ArrayList<>();
+```
+
+---
+#### Using var with ArrayList
+
+```java
+var stringList = new ArrayList<String>(); //List of Strings
+var unkownList = new ArrayList<>(); //List of objects (since we don't know the type)
+
+unkownList.add("a"); //Works (even having a list of Objects)
+for (String s: list) { } // DOES NOT COMPILE (Trying to implicit cast Object to String)
+```
+
+---
+#### Using an ArrayList
+
+##### add()
+The `add()` methods insert a new value in the ArrayList.
+
+`Method Overloads: 2`
+
+```java
+4: List<String> mine = new ArrayList<>();
+
+// Overload 1 -> Adding WITHOUT a index, it goes to the end of the list (always returns a boolean which is always true)
+5: birds.add("you");            // [you]
+
+// Overload 2 -> Adding WITH a index
+6: birds.add(1, "me");        // [you, me]
+7: birds.add(0, "us");     // [blue jay, hawk,
+```
+
+* Adding different types
+
+```java
+// If we don't specify the Array type, we can put anything
+ArrayList list = new ArrayList(Arrays.asList("word", true)); // Works
+
+// If we specify the type and try to put different type
+ArrayList<String> list = new ArrayList();
+list.add(true); //COMPILE ERROR
+```
+
+---
+##### remove
+The remove() methods remove the first matching value in the ArrayList or remove the element at a specified index
+
+`Method Overloads: 2`
+
+```java
+List list = new ArrayList(Arrays.asList("hawk", "hawk"));
+
+// Overload 1 -> Remove by object, returns boolean saying if object was removed
+System.out.println(birds.remove("hawk"));     // prints true
+
+// Overload 2 -> Remove by index, returns object (of list type) that was removed
+System.out.println(birds.remove(0));          // prints hawk
+```
+
+---
+##### set()
+The set() method changes one of the elements of the ArrayList without changing the size
+
+`Method Overloads: 0`
+`Methods throw exception if invalid Index?` **YES** 
+
+```java
+List list = new ArrayList(Arrays.asList("a")); //  [a]  | size: 1
+list.set(0, "b");                              //  [b] | size: 1
+list.set(1, "c");                              // IndexOutOfBoundsException
+```
+
+---
+##### isEmpty() and size()
+The isEmpty() and size() methods look at how many of the slots are in use.
+
+`Method Overloads: 0`
+
+```java
+List list = new ArrayList(Arrays.asList("a"));
+System.out.println(birds.isEmpty());     // false
+System.out.println(birds.size());        // 1
+
+List emptyList = new ArrayList();
+System.out.println(birds.isEmpty());     // true
+System.out.println(birds.size());        // 0
+```
+
+---
+##### clear()
+Provides an easy way to discard all elements of the ArrayList.
+
+```java
+List list = new ArrayList(Arrays.asList("a")); // [a] | size: 1
+list.clear();                                     // []     | size: 0
+```
+
+---
+##### contains()
+The contains() method checks whether a certain value is in the ArrayList.
+
+It uses `equals()` under the hoods so say if the element is inside the array or not
+
+```java
+List list = new ArrayList(Arrays.asList("a")); // [a] | size: 1
+System.out.println(birds.contains("a"));  // true
+System.out.println(birds.contains("b"));  // false
+```
+
+---
+##### equals()
+ArrayList has a custom implementation of equals(),so you can compare two lists to see whether they contain the same elements in the same order
+
+The equals will be true for ArrayList if:
+
+* Size are the same
+* Objects are the same and in the same order
+* Same Objects types
+
+---
+#### Wrapper Classes
+iEach primitive type has a wrapper class, which is an object type that corresponds to the primitive
+
+* The wrappers are: `Boolean`, `Byte`, `Short`, `Integer`, `Long`, `Float`, `Double`, `Character`
+
+* To create a value with Wrapper, just uses the constructor `new Integer(1)` or valueOf `Integer.valueOf(1)`
+
+```java
+int primitive = Integer.parseInt("123");  //Converts Wrapper to Primitive
+Integer wrapper = Integer.valueOf("123"); //Primitive to Wrapper
+
+// In the first example, the name changes according the type: parseBoolean, parseByte, etc...
+```
+
+**PS**: Character class doesn’t HAVE parse/valueOf methods. Since a String consists of characters, you can just call charAt()
+
+---
+#### Autoboxing and Unboxing
+
+Introduced on Java 5, you don't need to explicit convert from/to primitive/wrappers, java does this for you
+
+```java
+Integer a = 1;
+int b = a;
+```
+
+-> **New People:** _Important topic_, look at the book for more in-depth explanation and more examples.
+
+---
+#### Converting Between array and List
+
+##### Convert ArrayList to Array
+
+```java
+List list = new ArrayList(Arrays.asList("a"));
+Object[] objectArray = list.toArray(); // We don't want to convert to Object
+String[] stringArray = list.toArray(new String[0]); // We have to specify the array type
+
+// It creates a new object, so modifying the original list WILL NOT affect the array
+```
+
+---
+##### Convert Array to ArrayList
+
+**First way**: Create a fixed-size list (backed List) `asList()`
+```java
+List<String> list = Arrays.asList(array); // returns fixed size list
+list.remove(1);     // throws UnsupportedOperationException
+```
+
+* Every change you perform on the Array/List **WILL reflect in each other**
+* You CAN'T modify the size
+
+---
+**Second way**: Create an immutable List `listOf()`
+
+```java
+List<String> list = List.of(array);      // returns immutable list
+list.set(1, "test");      // throws UnsupportedOperationException
+```
+
+* Every change you perform on the Array/List **will NOT be reflected** in the immutable List 
+* You CAN'T change a list value in an immutable list
+
+
+! | toArray | Arrays.asList() | List.of()
+------- | ------- | ------- | -------
+Type converting from | List | Array(or varags) | Array(or varags)
+Type Created | Array | List | List
+Allowed to remove values from created object | No | No | No
+Allowed to change values in the created object |  Yes | Yes | No
+Changing values in the created object affects the original or vice versa | No| Yes | N/A
+
+---
+#### Sorting
+Sorting an ArrayList is similar to sorting an array BUT we use a helper to do it
+
+```java
+List list = new ArrayList(Arrays.asList(99, 5, 81));// [99, 5, 81]
+Collections.sort(numbers); // [5, 81, 99]
+```
+
+---
+### Creating Sets and Maps
+#### Introducing Sets
+A Set is a collection of objects that cannot contain duplicates
+
+* Set is NOT ordered and doesn't have index because of it
+* All the methods you learned for `ArrayList` apply to a Set with the exception of those taking an index as a parameter
+* The `add()` from Set tells if the value was added or not. In case you're trying to add a duplicated, it will not be added and will return `false`
+* Common set implementations: `HashSet` and `TreesSet`
+
+---
+#### Introducing Maps
+A map is a key/value collection and also cannot contain duplicates
+
+* Common set implementations: `HashMap`
+* Some of the methods are the same as those in ArrayList like clear(), isEmpty(), and size()
+
+**PS:** Useful set methods can be find on the book
+
+---
+### Calculating with Math APIs
+Java comes with a powerful Math class with many methods to make your life easier.
+
+##### min() and max()
+The min() and max() methods compare two values and return one of them.
+
+`Method Overloads: 4` (Always receives 2 values, but with different types (`double, float, int, long`)
+
+```java
+int first = Math.max(3, 7);  // 7
+int second = Math.min(7, -9);  // -9
+```
+
+---
+##### round() 
+The round() method gets rid of the decimal portion of the value, choosing the next higher number if appropriate. If the fractional part is .5 or higher, we round up
+
+`Method Overloads: 2` (Both 2 values, but with different types (`double, float`)
+
+```java
+long low = Math.round(123.45); // 123
+long high = Math.round(123.50); // 124
+int fromFloat = Math.round(123.45f); // 123
+```
+
+---
+##### pow()
+The pow() method handles exponents
+
+`Method Overloads: 0`
+
+```java
+double squared = Math.pow(5, 2); // 25.0 (25.0 since method return is a double)
+```
+
+---
+##### random()
+The random() method returns a value greater than or equal to 0 and less than 1
+
+`Method Overloads: 0`
+
+```java
+double num = Math.random();
+```
+ 
 
 
